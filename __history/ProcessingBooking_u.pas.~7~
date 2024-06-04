@@ -1,0 +1,495 @@
+unit ProcessingBooking_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, FunctionsAndProcedures_u, Spin, Aeroplane_u, Jpeg, TravelNowDB_u;
+
+type
+  TfrmProcessingBooking = class(TForm)
+    grpTickets: TGroupBox;
+    pnlProcessingBooking: TPanel;
+    grpAccommodation: TGroupBox;
+    lblClientUsername: TLabel;
+    lblTravellingTo: TLabel;
+    lblCostOfTicket: TLabel;
+    edtTicketCost: TEdit;
+    edtDestination: TEdit;
+    lblHotel: TLabel;
+    lblCostPerNight: TLabel;
+    edtHotel: TEdit;
+    edtCostPerNight: TEdit;
+    spnAmtTickets: TSpinEdit;
+    lblAmtTickets: TLabel;
+    spnAmtNights: TSpinEdit;
+    lblAmtNights: TLabel;
+    grpPlaneDetails: TGroupBox;
+    lblAeroplaneID: TLabel;
+    lblAirlineName: TLabel;
+    lblNumSeatsAvail: TLabel;
+    lblDepartureLocation: TLabel;
+    lblDepartureDate: TLabel;
+    pnlAeroplaneID: TPanel;
+    pnlDepartureDate: TPanel;
+    pnlDepartureLocation: TPanel;
+    pnlNumSeatsAvail: TPanel;
+    pnlAirlineName: TPanel;
+    imgDestination: TImage;
+    btnBookNow: TButton;
+    procedure FormActivate(Sender: TObject);
+    procedure btnBookNowClick(Sender: TObject);
+    Procedure AddToClientHistory(Accommodation : Boolean);
+    Procedure AddToClientNotifications (Accommodation : Boolean);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmProcessingBooking: TfrmProcessingBooking;
+  bAccommodation, bSpecialOffer : Boolean;
+  sDestination, sHotel, sClientUsername : String;
+  rCostOfTicket, rCostPerNight, rTotal : Real;
+  ObjAeroplane : TAeroplane;
+implementation
+
+{$R *.dfm}
+
+procedure TfrmProcessingBooking.AddToClientHistory(Accommodation: Boolean);
+Var
+  DataFile, TempDataFile : TextFile;
+  sLine : String;
+begin
+  if Accommodation = True then
+  Begin
+    AssignFile(DataFile, sClientUsername+' History.txt');
+    if FileExists(sClientUsername+' History.txt') then
+    Begin
+      Reset(DataFile);
+
+      AssignFile(TempDataFile, 'Temporary.txt');
+      Rewrite(TempDataFile);
+
+      while not eof(DataFile) do
+      Begin
+        Readln(DataFile, sLine);
+        Writeln(TempDataFile, sLine);
+      End;
+
+      CloseFile(DataFile);
+      CloseFile(TempDataFile);
+
+      Rewrite(DataFile);
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked tickets for a trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You booked ' +IntToStr(spnAmtTickets.Value) + ' ticket(s) to ' + sDestination +'.');
+      Writeln(DataFile, 'TravelNow hopes you enjoy your trip.');
+      Writeln(DataFile, #13+#13);
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked accommodation for your trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You will spend ' +IntToStr(spnAmtNights.Value) + ' nights(s) at ' + sHotel +'.');
+      Writeln(DataFile, 'TravelNow hopes you enjoy your stay.');
+      Writeln(DataFile, #13+#13);
+
+      Reset(TempDataFile);
+
+      while not eof(TempDataFile) do
+      Begin
+        Readln(TempDataFile, sLine);
+        Writeln(DataFile, sLine);
+      End;
+
+      CloseFile(DataFile);
+      CloseFile(TempDataFile);
+
+      DeleteFile('Temporary.txt');
+    End
+    Else
+    Begin
+      Rewrite(DataFile);
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked tickets for a trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You booked ' +IntToStr(spnAmtTickets.Value) + ' ticket(s) to ' + sDestination +'.');
+      Writeln(DataFile, 'TravelNow hopes you enjoy your trip.');
+      Writeln(DataFile, #13+#13);
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked accommodation for your trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You will spend ' +IntToStr(spnAmtNights.Value) + ' nights(s) at ' + sHotel +'.');
+      Writeln(DataFile, 'TravelNow hopes you enjoy your stay.');
+      Writeln(DataFile, #13+#13);
+
+      CloseFile(DataFile);
+    End;
+  End
+  Else
+  Begin
+    AssignFile(DataFile, sClientUsername+' History.txt');
+    if FileExists(sClientUsername+' History.txt') then
+    Begin
+      Reset(DataFile);
+
+      AssignFile(TempDataFile, 'Temporary.txt');
+      Rewrite(TempDataFile);
+
+      while not eof(DataFile) do
+      Begin
+        Readln(DataFile, sLine);
+        Writeln(TempDataFile, sLine);
+      End;
+
+      CloseFile(DataFile);
+      CloseFile(TempDataFile);
+
+      Rewrite(DataFile);
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked tickets for a trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You booked ' +IntToStr(spnAmtTickets.Value) + ' ticket(s) to ' + sDestination +'.');
+      Writeln(DataFile, 'TravelNow hopes you enjoy your trip.');
+      Writeln(DataFile, #13+#13);
+
+      Reset(TempDataFile);
+
+      while not eof(TempDataFile) do
+      Begin
+        Readln(TempDataFile, sLine);
+        Writeln(DataFile, sLine);
+      End;
+
+      CloseFile(DataFile);
+      CloseFile(TempDataFile);
+
+      DeleteFile('Temporary.txt');
+    End
+    Else
+    Begin
+      Rewrite(DataFile);
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked tickets for a trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You booked ' +IntToStr(spnAmtTickets.Value) + ' ticket(s) to ' + sDestination +'.');
+      Writeln(DataFile, 'TravelNow hopes you enjoy your trip.');
+      Writeln(DataFile, #13+#13);
+
+      CloseFile(DataFile);
+    End;
+  End;
+end;
+
+procedure TfrmProcessingBooking.AddToClientNotifications(
+  Accommodation: Boolean);
+Var
+  DataFile, TempDataFile : TextFile;
+  sLine: String;
+  rTotalTicketCost, rTotalAccommodationCost : Real;
+Begin
+  AssignFile(DataFile, sClientUsername+' Notifications.txt');
+
+  if Accommodation = True then
+  Begin
+    if FileExists(sClientUsername+' Notifications.txt') then
+    Begin
+      Reset(DataFile);
+
+      AssignFile(TempDataFile, 'Temporary.txt');
+      Rewrite(TempDataFile);
+
+      while not eof(DataFile) do
+      Begin
+        Readln(DataFile, sLine);
+        Writeln(TempDataFile, sLine);
+       End;
+
+      CloseFile(DataFile);
+      CloseFile(TempDataFile);
+
+      Rewrite(DataFile);
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked ' + IntToStr(spnAmtTickets.Value) + 'ticket(s) for a trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You will be travelling on ' + ObjAeroplane.GetAirlineName + ', Departure: ' + ObjAeroplane.GetDepartureDate + ', ' + ObjAeroplane.GetDepartureLocation + ' to ' + sDestination);
+      Writeln(DataFile, 'TravelNow hopes you enjoy your trip.');
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked accommodation for your trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You will be staying at ' + sHotel + ', for ' + IntToStr(spnAmtNights.Value) + ', night(s)');
+      Writeln(DataFile, 'TravelNow wishes you a happy stay.');
+
+      Reset(TempDataFile);
+
+      while not eof(TempDataFile) do
+      Begin
+        Readln(TempDataFile, sLine);
+        Writeln(DataFile, sLine);
+      End;
+
+      CloseFile(DataFile);
+      CloseFile(TempDataFile);
+
+      DeleteFile('Temporary.txt');
+
+    End
+    Else
+    Begin
+      Rewrite(DataFile);
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked ' + IntToStr(spnAmtTickets.Value) + 'ticket(s) for a trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You will be travelling on ' + ObjAeroplane.GetAirlineName + ', Departure: ' + ObjAeroplane.GetDepartureDate + ', ' + ObjAeroplane.GetDepartureLocation + ' to ' + sDestination);
+      Writeln(DataFile, 'TravelNow hopes you enjoy your trip.');
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked accommodation for your trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You will be staying at ' + sHotel + ', for ' + IntToStr(spnAmtNights.Value) + ', night(s)');
+      Writeln(DataFile, 'TravelNow wishes you a happy stay.');
+
+      CloseFile(DataFile);
+    End;
+  End
+  Else
+  Begin
+    if FileExists(sClientUsername+' Notifications.txt') then
+    Begin
+      Reset(DataFile);
+
+      AssignFile(TempDataFile, 'Temporary.txt');
+      Rewrite(TempDataFile);
+
+      while not eof(DataFile) do
+      Begin
+        Readln(DataFile, sLine);
+        Writeln(TempDataFile, sLine);
+       End;
+
+      CloseFile(DataFile);
+      CloseFile(TempDataFile);
+
+      Rewrite(DataFile);
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked ' + IntToStr(spnAmtTickets.Value) + 'ticket(s) for a trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You will be travelling on ' + ObjAeroplane.GetAirlineName + ', Departure: ' + ObjAeroplane.GetDepartureDate + ', ' + ObjAeroplane.GetDepartureLocation + ' to ' + sDestination);
+      Writeln(DataFile, 'TravelNow hopes you enjoy your trip.');
+
+      Reset(TempDataFile);
+
+      while not eof(TempDataFile) do
+      Begin
+        Readln(TempDataFile, sLine);
+        Writeln(DataFile, sLine);
+      End;
+
+      CloseFile(DataFile);
+      CloseFile(TempDataFile);
+
+      DeleteFile('Temporary.txt');
+
+    End
+    Else
+    Begin
+      Rewrite(DataFile);
+
+      Writeln(DataFile, 'Trip');
+      Writeln(DataFile, 'You booked ' + IntToStr(spnAmtTickets.Value) + 'ticket(s) for a trip');
+      Writeln(DataFile, DateToStr(Date));
+      Writeln(DataFile,'You will be travelling on ' + ObjAeroplane.GetAirlineName + ', Departure: ' + ObjAeroplane.GetDepartureDate + ', ' + ObjAeroplane.GetDepartureLocation + ' to ' + sDestination);
+      Writeln(DataFile, 'TravelNow hopes you enjoy your trip.');
+
+      CloseFile(DataFile);
+    End;
+  End;
+end;
+
+procedure TfrmProcessingBooking.btnBookNowClick(Sender: TObject);
+Var
+  iRecordNum : Integer;
+begin
+  if bAccommodation = True then
+  Begin
+    rTotal := (spnAmtTickets.Value * rCostOfTicket) + (spnAmtNights.Value * rCostPerNight);
+
+    if MessageDlg('By clicking yes your are confirming that: ' +#13+
+                'You are buying ' + IntToStr(spnAmtTickets.value) + ' tickets(s) to ' + sDestination
+                +#13+ 'You will be staying at ' + sHotel + ' for ' + IntToStr(spnAmtNights.Value) + ' night(s).'
+                +#13+ 'Grand Total: ' + FloatToStrF(rTotal, ffCurrency, 6, 2), mtConfirmation, mbYesNo, 0) = mrYes then
+    Begin
+      AddToClientHistory(bAccommodation);
+      AddToClientNotifications(bAccommodation);
+
+      With DBTravelNow Do
+      Begin
+        qryTravelNow.SQL.Clear;
+        qryTravelNow.SQL.Add('Select TransactionID From TblSales Order by TransactionID');
+        qryTravelNow.Open;
+        qryTravelNow.Last;
+        iRecordNum := qryTravelNow.FieldByName('TransactionID').AsInteger;
+        iRecordNum := iRecordNum + 1;
+
+        qryTravelNow.SQL.Clear;
+        qryTravelNow.SQL.Add('Insert Into TblSales(TransactionID, ClientUsername, Destination, Accommodation, Tickets, Total, SpecialOffer)');
+        qryTravelNow.SQL.Add('Values(:TransactionID, :ClientUsername,:Destination, :Accommodation, :Tickets, :Total, :SpecialOffer)');
+
+        With qryTravelNow.Parameters Do
+        Begin
+          ParamByName('TransactionID').Value := iRecordNum;
+          ParamByName('ClientUsername').Value := sClientUsername;
+          ParamByName('Destination').Value := sDestination;
+          ParamByName('Accommodation').Value := (spnAmtNights.Value * rCostPerNight);
+          ParamByName('Tickets').Value := (spnAmtTickets.Value * rCostOfTicket);
+          ParamByName('Total').Value := rTotal;
+          ParamByName('SpecialOffers').Value := bSpecialOffer;
+        End;
+
+        qryTravelNow.ExecSQL;
+      End;
+
+      MessageDlg('Your ticket(s) and accommodation has been booked successfully.', mtInformation, mbOKCancel, 0);
+    End
+    Else
+    Begin
+      MessageDlg('You ticket(s) and accommodation has not been booked.', mtInformation, mbOKCancel, 0);
+    End;
+  End
+  Else
+  Begin
+    rTotal := (spnAmtTickets.Value * rCostOfTicket);
+
+    if MessageDlg('By clicking yes your are confirming that: ' +#13+
+                'You are buying ' + IntToStr(spnAmtTickets.value) + ' tickets(s) to ' + sDestination
+                +#13+ 'Grand Total: ' + FloatToStrF(rTotal, ffCurrency, 6, 2), mtConfirmation, mbYesNo, 0) = mrYes then
+    Begin
+      AddToClientHistory(bAccommodation);
+      AddToClientNotifications(bAccommodation);
+
+      With DBTravelNow Do
+      Begin
+        qryTravelNow.SQL.Clear;
+        qryTravelNow.SQL.Add('Select TransactionID From TblSales Order by TransactionID');
+        qryTravelNow.Open;
+        qryTravelNow.Last;
+        iRecordNum := qryTravelNow.FieldByName('TransactionID').AsInteger;
+        iRecordNum := iRecordNum + 1;
+
+        qryTravelNow.SQL.Clear;
+        qryTravelNow.SQL.Add('Insert Into TblSales(TransactionID, ClientUsername, Destination, Accommodation, Tickets, Total, SpecialOffer)');
+        qryTravelNow.SQL.Add('Values(:TransactionID, :ClientUsername,:Destination, :Accommodation, :Tickets, :Total, :SpecialOffer)');
+
+        With qryTravelNow.Parameters Do
+        Begin
+          ParamByName('TransactionID').Value := iRecordNum;
+          ParamByName('ClientUsername').Value := sClientUsername;
+          ParamByName('Destination').Value := sDestination;
+          ParamByName('Accommodation').Value := 0;
+          ParamByName('Tickets').Value := (spnAmtTickets.Value * rCostOfTicket);
+          ParamByName('Total').Value := rTotal;
+          ParamByName('SpecialOffers').Value := bSpecialOffer;
+        End;
+
+        qryTravelNow.ExecSQL;
+      End;
+
+      MessageDlg('Your ticket(s) have been booked successfully.', mtInformation, mbOKCancel, 0);
+    End
+    Else
+    Begin
+      MessageDlg('You ticket(s) have not been booked.', mtInformation, mbOKCancel, 0);
+    End;
+  End;
+end;
+
+procedure TfrmProcessingBooking.FormActivate(Sender: TObject);
+begin
+  bAccommodation := FunctionsAndProcedures_u.bAccommodation;
+  sDestination := FunctionsAndProcedures_u.sDestination;
+  bSpecialOffer := FunctionsAndProcedures_u.bSpecialOffer;
+
+  spnAmtTickets.Value := 1;
+  spnAmtNights.Value := 1;
+
+  imgDestination.Picture.LoadFromFile('C:\Users\Kai\Desktop\PAT\' +sDestination+ '\1.jpg');
+
+  if bAccommodation = False then
+  Begin
+    grpAccommodation.Enabled := False;
+    spnAmtNights.Enabled := False;
+
+    MessageDlg('You selected that you do not need accommodation and this is the reason why you cannot book accommodation.', mtInformation, mbOKCancel, 0);
+
+    sClientUsername := FunctionsAndProcedures_u.sClientUsername;
+    lblClientUsername.Caption := 'You are logged in as client: ' + FunctionsAndProcedures_u.sClientUsername;
+    edtDestination.Text := sDestination;
+    rCostOfTicket := FunctionsAndProcedures_u.rTicketCost;
+    edtTicketCost.Text := FloatToStrF(rCostOfTicket, ffCurrency, 6, 2);
+
+    ObjAeroplane := TAeroplane.Create(sDestination);
+
+    pnlAeroplaneID.Caption := ObjAeroplane.GetAeroplaneID;
+    pnlAirlineName.Caption := ObjAeroplane.GetAirlineName;
+    pnlNumSeatsAvail.Caption := IntToStr(ObjAeroplane.GetNumSeatsAvail);
+    pnlDepartureLocation.Caption := ObjAeroplane.GetDepartureLocation;
+    pnlDepartureDate.Caption := ObjAeroplane.GetDepartureDate;
+
+    spnAmtTickets.MaxValue := ObjAeroplane.GetNumSeatsAvail;
+
+    if ObjAeroplane.GetNumSeatsAvail = 0 then
+    Begin
+      MessageDlg('All the tickets to this location have been booked. Please check back soon', mtInformation, mbOKCancel, 0);
+      grpTickets.Enabled := False;
+      grpAccommodation.Enabled := False;
+      grpPlaneDetails.Enabled := False;
+      grpAccommodation.Hide;
+      grpPlaneDetails.Hide;
+    End;
+  End
+  Else
+  Begin
+    grpAccommodation.Enabled := True;
+
+    sClientUsername := FunctionsAndProcedures_u.sClientUsername;
+    lblClientUsername.Caption := 'You are logged in as client: ' + FunctionsAndProcedures_u.sClientUsername;
+    edtDestination.Text := sDestination;
+    rCostOfTicket := FunctionsAndProcedures_u.rTicketCost;
+    edtTicketCost.Text := FloatToStrF(rCostOfTicket, ffCurrency, 6, 2);
+    sHotel := FunctionsAndProcedures_u.sHotelName;
+    edtHotel.Text := sHotel;
+    rCostPerNight := FunctionsAndProcedures_u.rHotelCost;
+    edtCostPerNight.Text := FloatToStrF(rCostPerNight, ffCurrency, 6, 2);
+
+    ObjAeroplane := TAeroplane.Create(sDestination);
+
+    pnlAeroplaneID.Caption := ObjAeroplane.GetAeroplaneID;
+    pnlAirlineName.Caption := ObjAeroplane.GetAirlineName;
+    pnlNumSeatsAvail.Caption := IntToStr(ObjAeroplane.GetNumSeatsAvail);
+    pnlDepartureLocation.Caption := ObjAeroplane.GetDepartureLocation;
+    pnlDepartureDate.Caption := ObjAeroplane.GetDepartureDate;
+
+    spnAmtTickets.MaxValue := ObjAeroplane.GetNumSeatsAvail;
+
+    if ObjAeroplane.GetNumSeatsAvail = 0 then
+    Begin
+      MessageDlg('All the tickets to this location have been booked. Please check back soon', mtInformation, mbOKCancel, 0);
+      grpTickets.Enabled := False;
+      grpAccommodation.Enabled := False;
+      grpPlaneDetails.Enabled := False;
+      grpAccommodation.Hide;
+      grpPlaneDetails.Hide;
+    End;
+  End;
+end;
+
+end.

@@ -1,0 +1,188 @@
+unit Aeroplane_u;
+
+interface
+
+Uses
+  SysUtils, TravelNowDB_u, DB;
+
+Type
+  TAeroplane = Class(TObject)
+    Private
+      fAeroplaneID : String;
+      fAirlineName : String;
+      fDestination : String;
+      fDepartureLocation : String;
+      fTotalNumOfSeats : Integer;
+      fNumSeatsAvail : Integer;
+      fNumOfSeatsOccupied : Integer;
+      fDepartureDate : String;
+      fDate : TDate;
+    Public
+      Constructor Create(sDestination : String);
+      Function GetAeroplaneID : String;
+      Function GetAirlineName : String;
+      Function GetDestination : String;
+      Function GetDepartureLocation : String;
+      Function GetTotalNumSeats : Integer;
+      Function GetNumSeatsOccupied : Integer;
+      Function GetDepartureDate : String;
+      Function GetNumSeatsAvail : Integer;
+      Procedure AddNumSeatsOccupied (iTickets : Integer);
+      Procedure ChangeDepartureDate (dDate : TDate);
+      Procedure ChangeDepartureLocation (sLocation : String);
+      Procedure ChangeNumSeatsAvail (iSeats : Integer);
+      Procedure UpdateDepartureLocation;
+      Procedure UpdateDepartureDate;
+      Procedure UpdateSeatsAvail;
+  End;
+implementation
+
+{ TAeroplane }
+
+procedure TAeroplane.AddNumSeatsOccupied(iTickets : Integer);
+begin
+  fNumOfseatsOccupied := fNumOfseatsOccupied + iTickets;
+  fNumSeatsAvail := fNumSeatsAvail - iTickets;
+end;
+
+procedure TAeroplane.ChangeDepartureDate(dDate: TDate);
+begin
+  fDate := dDate;
+end;
+
+procedure TAeroplane.ChangeDepartureLocation(sLocation: String);
+begin
+  fDepartureLocation := sLocation;
+end;
+
+procedure TAeroplane.ChangeNumSeatsAvail(iSeats: Integer);
+begin
+  fNumSeatsAvail := iSeats;
+end;
+
+constructor TAeroplane.Create(sDestination : String);
+begin
+  With DBTravelNow Do
+  Begin
+    qryTravelNow.SQL.Clear;
+    qryTravelNow.SQL.Add('Select *, ');
+    qryTravelNow.SQL.Add('Format (DepartureDate, ''dd mmmm yyyy'') As DepartureDate');
+    qryTravelNow.SQL.Add('From TblAeroplane Where Destination = ' + QuotedStr(sDestination));
+    qryTravelNow.Open;
+
+    fAeroplaneID := qryTravelNow.FieldByName('AeroplaneID').AsString;
+    fAirlineName := qryTravelNow.FieldByName('AirlineName').AsString;
+    fDestination := qryTravelNow.FieldByName('Destination').AsString;
+    fDepartureLocation := qryTravelNow.FieldByName('DepartureLocation').AsString;
+    fTotalNumOfSeats := qryTravelNow.FieldByName('TotalNumOfSeats').AsInteger;
+    fNumSeatsAvail := qryTravelNow.FieldByName('NumOfSeatsAvailable').AsInteger;
+    fNumOfSeatsOccupied := fTotalNumOfSeats - fNumSeatsAvail;
+    fDepartureDate := qryTravelNow.FieldByName('DepartureDate').AsString;
+
+    qryTravelNow.SQL.Clear;
+    qryTravelNow.SQL.Add('Select *');
+    qryTravelNow.SQL.Add('From TblAeroplane Where Destination = ' + QuotedStr(sDestination));
+    qryTravelNow.Open;
+
+    fDate := qryTravelNow.FieldByName('DepartureDate').AsDateTime;
+  End;
+end;
+
+function TAeroplane.GetAeroplaneID: String;
+begin
+  Result := fAeroplaneID;
+end;
+
+function TAeroplane.GetAirlineName: String;
+begin
+  Result := fAirlineName;
+end;
+
+function TAeroplane.GetDepartureDate: String;
+begin
+  Result := fDepartureDate;
+end;
+
+function TAeroplane.GetDepartureLocation: String;
+begin
+  Result := fDepartureLocation;
+end;
+
+function TAeroplane.GetDestination: String;
+begin
+  Result := fDestination;
+end;
+
+function TAeroplane.GetNumSeatsAvail: Integer;
+begin
+  Result := fNumSeatsAvail;
+end;
+
+function TAeroplane.GetNumSeatsOccupied: Integer;
+begin
+  Result := fNumOfseatsOccupied;
+end;
+
+function TAeroplane.GetTotalNumSeats: Integer;
+begin
+  Result := fTotalNumOfSeats;
+end;
+
+procedure TAeroplane.UpdateDepartureDate;
+begin
+  With DBTravelNow Do
+  Begin
+    qryTravelNow.SQL.Clear;
+    qryTravelNow.SQL.Add('Update TblAeroplane');
+    qryTravelNow.SQL.Add('Set DepartureDate = :dDate');
+    qryTravelNow.SQL.Add('Where AeroplaneID = :AeroplaneID');
+
+    With qryTravelNow.Parameters Do
+    Begin
+      ParamByName('dDate').Value := fDate;
+      ParamByName('AeroplaneID').Value := fAeroplaneID;
+    End;
+
+    qryTravelNow.ExecSQL;
+  End;
+end;
+
+procedure TAeroplane.UpdateDepartureLocation;
+begin
+  With DBTravelNow Do
+  Begin
+    qryTravelNow.SQL.Clear;
+    qryTravelNow.SQL.Add('Update TblAeroplane');
+    qryTravelNow.SQL.Add('Set DepartureLocation = :sLocation');
+    qryTravelNow.SQL.Add('Where AeroplaneID = :AeroplaneID');
+
+    With qryTravelNow.Parameters Do
+    Begin
+      ParamByName('sLocation').Value := fDepartureLocation;
+      ParamByName('AeroplaneID').Value := fAeroplaneID;
+    End;
+
+    qryTravelNow.ExecSQL;
+  End;
+end;
+
+procedure TAeroplane.UpdateSeatsAvail;
+begin
+  With DBTravelNow Do
+  Begin
+    qryTravelNow.SQL.Clear;
+    qryTravelNow.SQL.Add('Update TblAeroplane');
+    qryTravelNow.SQL.Add('Set NumOfSeatsAvailable = :NumSeatsAvail');
+    qryTravelNow.SQL.Add('Where AeroplaneID = :AeroplaneID');
+
+    With qryTravelNow.Parameters Do
+    Begin
+      ParamByName('NumSeatsAvail').Value := fNumSeatsAvail;
+      ParamByName('AeroplaneID').Value := fAeroplaneID;
+    End;
+
+    qryTravelNow.ExecSQL;
+  End;
+end;
+
+end.

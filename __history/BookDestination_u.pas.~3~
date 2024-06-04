@@ -1,0 +1,112 @@
+unit BookDestination_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Jpeg, TravelNowDB_u, FunctionsAndProcedures_u, BookAccommodation_u; //Added Jpeg to uses
+
+type
+  TfrmBookDestination = class(TForm)
+    img1: TImage;
+    pnlBookDestination: TPanel;
+    img2: TImage;
+    img3: TImage;
+    img4: TImage;
+    cmbSelectDestination: TComboBox;
+    imgTemp: TImage;
+    btnProceed: TButton;
+    procedure cmbSelectDestinationClick(Sender: TObject);
+    procedure img2Click(Sender: TObject);
+    procedure img3Click(Sender: TObject);
+    procedure img4Click(Sender: TObject);
+    procedure btnProceedClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmBookDestination: TfrmBookDestination;
+  sDestination, sDestinationID : String;
+implementation
+
+{$R *.dfm}
+
+procedure TfrmBookDestination.btnProceedClick(Sender: TObject);
+begin
+  if cmbSelectDestination.ItemIndex <> -1 then
+  Begin
+    if MessageDlg('Would you like to book your accommodation?', mtInformation, mbYesNo, 0) = mrYes then
+    Begin
+      FunctionsAndProcedures_u.sDestination := sDestination;
+
+      With DBTravelNow Do
+      Begin
+        qryTravelNow.SQL.Clear;
+        qryTravelNow.SQL.Add('Select DestinationID from TblDestination Where City = ' + QuotedStr(sDestination));
+        qryTravelNow.Open;
+
+        sDestinationID := qryTravelNow['DestinationID'];
+        FunctionsAndProcedures_u.sDestinationID := sDestinationID;
+      End;
+
+      frmBookDestination.Hide;
+      frmAccommodation.Show;
+    End
+    Else
+    Begin
+      if MessageDlg('Are you sure you would not like accommodation?', mtConfirmation, mbYesNo, 0) = mrYes then
+      Begin
+
+      End
+      Else
+      Begin
+        MessageDlg('Please select yes when asked about booking accommodation.', mtInformation, mbOKCancel, 0);
+      End;
+    End;
+  End
+  Else
+  Begin
+    MessageDlg('Please choose a destination before you proceed.', mtError, mbOKCancel, 0);
+  End;
+end;
+
+procedure TfrmBookDestination.cmbSelectDestinationClick(Sender: TObject);
+begin
+  sDestination := cmbSelectDestination.Items[cmbSelectDestination.ItemIndex];
+
+  img1.Picture.LoadFromFile('C:\Users\Kai\Desktop\PAT\' + sDestination + '\1.jpg');
+  img2.Picture.LoadFromFile('C:\Users\Kai\Desktop\PAT\' + sDestination + '\2.jpg');
+  img3.Picture.LoadFromFile('C:\Users\Kai\Desktop\PAT\' + sDestination + '\3.jpg');
+  img4.Picture.LoadFromFile('C:\Users\Kai\Desktop\PAT\' + sDestination + '\4.jpg');
+
+  img1.Stretch := True;
+  img2.Stretch := True;
+  img3.Stretch := True;
+  img4.Stretch := True;
+end;
+
+procedure TfrmBookDestination.img2Click(Sender: TObject);
+begin
+  imgTemp.Picture := img1.Picture;
+  img1.Picture := img2.Picture;
+  img2.Picture := imgTemp.Picture;
+end;
+
+procedure TfrmBookDestination.img3Click(Sender: TObject);
+begin
+  imgTemp.Picture := img1.Picture;
+  img1.Picture := img3.Picture;
+  img3.Picture := imgTemp.Picture;
+end;
+
+procedure TfrmBookDestination.img4Click(Sender: TObject);
+begin
+  imgTemp.Picture := img1.Picture;
+  img1.Picture := img4.Picture;
+  img4.Picture := imgTemp.Picture;
+end;
+
+end.

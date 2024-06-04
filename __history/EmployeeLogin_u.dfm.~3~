@@ -1,0 +1,72 @@
+object frmEmployeeLogin: TfrmEmployeeLogin
+  Left = 0
+  Top = 0
+  Caption = 'Employee Login'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clSilver
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlEmployeeLogin: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 49
+    Caption = 'pnlEmployeeLogin'
+    TabOrder = 0
+  end
+  object grpEmployeeLoginDetails: TGroupBox
+    Left = 0
+    Top = 55
+    Width = 601
+    Height = 386
+    Caption = 'grpEmployeeLoginDetails'
+    TabOrder = 1
+    object lblUsername: TLabel
+      Left = 152
+      Top = 104
+      Width = 58
+      Height = 13
+      Caption = 'lblUsername'
+    end
+    object lblPassword: TLabel
+      Left = 152
+      Top = 152
+      Width = 56
+      Height = 13
+      Caption = 'lblPassword'
+    end
+    object edtUsername: TEdit
+      Left = 344
+      Top = 96
+      Width = 121
+      Height = 21
+      TabOrder = 0
+      Text = 'edtUsername'
+    end
+    object edtPassword: TEdit
+      Left = 344
+      Top = 144
+      Width = 121
+      Height = 21
+      TabOrder = 1
+      Text = 'edtPassword'
+    end
+    object btnLogin: TButton
+      Left = 264
+      Top = 216
+      Width = 75
+      Height = 25
+      Caption = 'btnLogin'
+      TabOrder = 2
+      OnClick = btnLoginClick
+    end
+  end
+end

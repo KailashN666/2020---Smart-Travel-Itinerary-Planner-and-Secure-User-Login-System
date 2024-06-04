@@ -1,0 +1,42 @@
+object frmProcessingBooking: TfrmProcessingBooking
+  Left = 0
+  Top = 0
+  Caption = 'frmProcessingBooking'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object grpTickets: TGroupBox
+    Left = 0
+    Top = 80
+    Width = 297
+    Height = 377
+    Caption = 'grpTickets'
+    TabOrder = 0
+  end
+  object pnlProcessingBooking: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'pnlProcessingBooking'
+    TabOrder = 1
+  end
+  object grpAccommodation: TGroupBox
+    Left = 303
+    Top = 80
+    Width = 297
+    Height = 377
+    Caption = 'grpAccommodation'
+    TabOrder = 2
+  end
+end

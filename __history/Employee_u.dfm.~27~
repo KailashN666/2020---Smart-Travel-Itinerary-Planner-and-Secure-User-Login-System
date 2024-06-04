@@ -1,0 +1,471 @@
+object frmEmployee: TfrmEmployee
+  AlignWithMargins = True
+  Left = 0
+  Top = 0
+  Align = alCustom
+  Caption = 'frmEmployee'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pcEmployee: TPageControl
+    Left = 0
+    Top = -5
+    Width = 592
+    Height = 510
+    ActivePage = tsNotifications
+    Style = tsFlatButtons
+    TabOrder = 0
+    TabWidth = 190
+    object tsBookings: TTabSheet
+      Caption = 'tsBookings'
+      ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 144
+      ExplicitHeight = 482
+      object grpSpecialOffers: TGroupBox
+        Left = 3
+        Top = 236
+        Width = 202
+        Height = 202
+        Caption = 'grpSpecialOffers'
+        TabOrder = 0
+        object lblCurrentSpecialOffers: TLabel
+          Left = 32
+          Top = 24
+          Width = 111
+          Height = 13
+          Caption = 'lblCurrentSpecialOffers'
+        end
+        object lblChangeSpecialOffer: TLabel
+          Left = 37
+          Top = 80
+          Width = 106
+          Height = 13
+          Caption = 'lblChangeSpecialOffer'
+        end
+        object btnSubmitChange: TButton
+          Left = 48
+          Top = 144
+          Width = 75
+          Height = 25
+          Caption = 'btnSubmitChange'
+          TabOrder = 0
+          OnClick = btnSubmitChangeClick
+        end
+        object cmbCurrentSpecialOffers: TComboBox
+          Left = 10
+          Top = 43
+          Width = 145
+          Height = 22
+          Style = csOwnerDrawVariable
+          TabOrder = 1
+        end
+        object cmbChangeSpecialOffers: TComboBox
+          Left = 10
+          Top = 99
+          Width = 145
+          Height = 22
+          Style = csOwnerDrawVariable
+          TabOrder = 2
+        end
+      end
+      object grpPlaneDetails: TGroupBox
+        Left = 208
+        Top = 17
+        Width = 382
+        Height = 353
+        Caption = 'grpPlaneDetails'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        object lblAeroplaneID: TLabel
+          Left = 14
+          Top = 77
+          Width = 70
+          Height = 13
+          Caption = 'lblAeroplaneID'
+        end
+        object lblAirlineName: TLabel
+          Left = 14
+          Top = 108
+          Width = 66
+          Height = 13
+          Caption = 'lblAirlineName'
+        end
+        object lblNumSeatsAvail: TLabel
+          Left = 14
+          Top = 139
+          Width = 81
+          Height = 13
+          Caption = 'lblNumSeatsAvail'
+        end
+        object lblDepartureLocation: TLabel
+          Left = 14
+          Top = 170
+          Width = 99
+          Height = 13
+          Caption = 'lblDepartureLocation'
+        end
+        object lblDepartureDate: TLabel
+          Left = 14
+          Top = 197
+          Width = 82
+          Height = 13
+          Caption = 'lblDepartureDate'
+        end
+        object lblGetDetailsOfThePlaneTravellingTo: TLabel
+          Left = 112
+          Top = 24
+          Width = 173
+          Height = 13
+          Caption = 'lblGetDetailsOfThePlaneTravellingTo'
+        end
+        object lblUpdateDepartureLocation: TLabel
+          Left = 128
+          Top = 280
+          Width = 134
+          Height = 13
+          Caption = 'lblUpdateDepartureLocation'
+        end
+        object lblUpdateNumSeatsAvail: TLabel
+          Left = 136
+          Top = 329
+          Width = 116
+          Height = 13
+          Caption = 'lblUpdateNumSeatsAvail'
+        end
+        object lblUpdateDepartureDate: TLabel
+          Left = 128
+          Top = 232
+          Width = 117
+          Height = 13
+          Caption = 'lblUpdateDepartureDate'
+        end
+        object pnlAeroplaneID: TPanel
+          Left = 128
+          Top = 71
+          Width = 185
+          Height = 25
+          Caption = 'pnlAeroplaneID'
+          TabOrder = 0
+        end
+        object pnlDepartureDate: TPanel
+          Left = 128
+          Top = 195
+          Width = 185
+          Height = 18
+          Caption = 'pnlDepartureDate'
+          TabOrder = 1
+        end
+        object pnlDepartureLocation: TPanel
+          Left = 128
+          Top = 164
+          Width = 185
+          Height = 25
+          Caption = 'pnlDepartureLocation'
+          TabOrder = 2
+        end
+        object pnlNumSeatsAvail: TPanel
+          Left = 128
+          Top = 133
+          Width = 185
+          Height = 25
+          Caption = 'pnlNumSeatsAvail'
+          TabOrder = 3
+        end
+        object pnlAirlineName: TPanel
+          Left = 128
+          Top = 102
+          Width = 185
+          Height = 25
+          Caption = 'pnlAirlineName'
+          TabOrder = 4
+        end
+        object cmbCity: TComboBox
+          Left = 112
+          Top = 43
+          Width = 145
+          Height = 22
+          Style = csOwnerDrawVariable
+          TabOrder = 5
+          OnClick = cmbCityClick
+          Items.Strings = (
+            'Amsterdam'
+            'Barcelona'
+            'Bergen'
+            'Florence'
+            'London'
+            'Monte Carlo'
+            'New York City'
+            'Osaka'
+            'Paris'
+            'Vienna')
+        end
+        object btnChangeDepartureDate: TButton
+          Left = 251
+          Top = 249
+          Width = 75
+          Height = 25
+          Caption = 'btnChangeDepartureDate'
+          Enabled = False
+          TabOrder = 6
+          OnClick = btnChangeDepartureDateClick
+        end
+        object btnChangeDepartureLocation: TButton
+          Left = 268
+          Top = 299
+          Width = 75
+          Height = 25
+          Caption = 'btnChangeDepartureLocation'
+          Enabled = False
+          TabOrder = 7
+          OnClick = btnChangeDepartureLocationClick
+        end
+        object btnChangeNumSeatsAvail: TButton
+          Left = 258
+          Top = 348
+          Width = 75
+          Height = 25
+          Caption = 'btnChangeNumSeatsAvail'
+          Enabled = False
+          TabOrder = 8
+          OnClick = btnChangeNumSeatsAvailClick
+        end
+        object dtpChangeDepartureDate: TDateTimePicker
+          Left = 3
+          Top = 251
+          Width = 186
+          Height = 21
+          Date = 44053.484507812500000000
+          Time = 44053.484507812500000000
+          TabOrder = 9
+        end
+        object cmbChangeDepartureLocation: TComboBox
+          Left = 24
+          Top = 299
+          Width = 145
+          Height = 22
+          Style = csOwnerDrawFixed
+          TabOrder = 10
+        end
+        object spnChangeNumSeatsAvail: TSpinEdit
+          Left = 24
+          Top = 348
+          Width = 121
+          Height = 22
+          MaxValue = 0
+          MinValue = 0
+          TabOrder = 11
+          Value = 0
+        end
+      end
+      object grpTicketDetails: TGroupBox
+        Left = 208
+        Top = 376
+        Width = 382
+        Height = 93
+        Caption = 'grpTicketDetails'
+        TabOrder = 2
+        object lblCostOfOneTicket: TLabel
+          Left = 152
+          Top = 21
+          Width = 92
+          Height = 13
+          Caption = 'lblCostOfOneTicket'
+        end
+        object cmbTicketDestination: TComboBox
+          Left = 24
+          Top = 40
+          Width = 145
+          Height = 22
+          Style = csOwnerDrawVariable
+          TabOrder = 0
+          OnClick = cmbTicketDestinationClick
+          Items.Strings = (
+            'Amsterdam'
+            'Barcelona'
+            'Bergen'
+            'Florence'
+            'London'
+            'Monte Carlo'
+            'New York City'
+            'Osaka'
+            'Paris'
+            'Vienna')
+        end
+        object pnlTicketCost: TPanel
+          Left = 194
+          Top = 40
+          Width = 185
+          Height = 25
+          Caption = 'pnlTicketCost'
+          TabOrder = 1
+        end
+        object btnChangeTicketCost: TButton
+          Left = 152
+          Top = 65
+          Width = 75
+          Height = 25
+          Caption = 'btnChangeTicketCost'
+          TabOrder = 2
+          OnClick = btnChangeTicketCostClick
+        end
+      end
+      object grpBookForClient: TGroupBox
+        Left = 3
+        Top = 24
+        Width = 202
+        Height = 158
+        Caption = 'grpBookForClient'
+        TabOrder = 3
+        object lblClientUsername: TLabel
+          Left = 64
+          Top = 24
+          Width = 85
+          Height = 13
+          Caption = 'lblClientUsername'
+        end
+        object edtClientUsername: TEdit
+          Left = 34
+          Top = 43
+          Width = 121
+          Height = 21
+          TabOrder = 0
+          Text = 'Kailash_N'
+        end
+        object btnBookForClient: TButton
+          Left = 48
+          Top = 77
+          Width = 75
+          Height = 25
+          Caption = 'btnBookForClient'
+          TabOrder = 1
+          OnClick = btnBookForClientClick
+        end
+      end
+    end
+    object tsNotifications: TTabSheet
+      Caption = 'tsNotifications'
+      ImageIndex = 1
+      object cmbNotifications: TComboBox
+        Left = 192
+        Top = 63
+        Width = 145
+        Height = 22
+        Style = csOwnerDrawFixed
+        TabOrder = 0
+        OnClick = cmbNotificationsClick
+      end
+      object redDetails: TRichEdit
+        Left = 152
+        Top = 99
+        Width = 241
+        Height = 166
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+      object grpDecision: TGroupBox
+        Left = 152
+        Top = 271
+        Width = 241
+        Height = 58
+        TabOrder = 2
+        object btnApprove: TButton
+          Left = 16
+          Top = 16
+          Width = 75
+          Height = 25
+          Caption = 'btnApprove'
+          Enabled = False
+          TabOrder = 0
+          OnClick = btnApproveClick
+        end
+        object btnDecline: TButton
+          Left = 144
+          Top = 16
+          Width = 75
+          Height = 25
+          Caption = 'btnDecline'
+          Enabled = False
+          TabOrder = 1
+          OnClick = btnDeclineClick
+        end
+      end
+    end
+    object tsProfile: TTabSheet
+      Caption = 'tsProfile'
+      ExplicitTop = 24
+      ExplicitWidth = 593
+      ExplicitHeight = 493
+      object lblUsername: TLabel
+        Left = 88
+        Top = 156
+        Width = 58
+        Height = 13
+        Caption = 'lblUsername'
+      end
+      object lblName: TLabel
+        Left = 88
+        Top = 203
+        Width = 37
+        Height = 13
+        Caption = 'lblName'
+      end
+      object lblSurname: TLabel
+        Left = 88
+        Top = 268
+        Width = 52
+        Height = 13
+        Caption = 'lblSurname'
+      end
+      object pnlSurname: TPanel
+        Left = 333
+        Top = 240
+        Width = 185
+        Height = 41
+        Caption = 'pnlSurname'
+        TabOrder = 0
+      end
+      object pnlName: TPanel
+        Left = 336
+        Top = 175
+        Width = 185
+        Height = 41
+        Caption = 'pnlName'
+        TabOrder = 1
+      end
+      object pnlUsername: TPanel
+        Left = 336
+        Top = 128
+        Width = 185
+        Height = 41
+        Caption = 'pnlUsername'
+        TabOrder = 2
+      end
+    end
+  end
+  object btnCloseProgram: TButton
+    Left = 250
+    Top = 471
+    Width = 75
+    Height = 25
+    Caption = 'btnCloseProgram'
+    TabOrder = 1
+    OnClick = btnCloseProgramClick
+  end
+end

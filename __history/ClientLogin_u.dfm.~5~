@@ -1,0 +1,137 @@
+object frmClientLogin: TfrmClientLogin
+  Left = 0
+  Top = 0
+  Caption = 'Client Login'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clSilver
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlClientLogin: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'Client Login'
+    TabOrder = 0
+  end
+  object grpLogin: TGroupBox
+    Left = 24
+    Top = 47
+    Width = 329
+    Height = 337
+    TabOrder = 1
+    object lblUsername: TLabel
+      Left = 48
+      Top = 56
+      Width = 58
+      Height = 13
+      Caption = 'lblUsername'
+    end
+    object lblPassword: TLabel
+      Left = 48
+      Top = 96
+      Width = 56
+      Height = 13
+      Caption = 'lblPassword'
+    end
+    object edtUsername: TEdit
+      Left = 168
+      Top = 48
+      Width = 121
+      Height = 21
+      TabOrder = 0
+    end
+    object edtPassword: TEdit
+      Left = 168
+      Top = 88
+      Width = 121
+      Height = 21
+      TabOrder = 1
+    end
+    object btnLogin: TButton
+      Left = 119
+      Top = 128
+      Width = 75
+      Height = 25
+      Caption = 'btnLogin'
+      TabOrder = 2
+      OnClick = btnLoginClick
+    end
+    object pnlForgotUsername: TPanel
+      Left = 3
+      Top = 159
+      Width = 323
+      Height = 66
+      Caption = 
+        'Forgot your login details? Would you like to sign in with your I' +
+        'D Number instead?'
+      TabOrder = 3
+    end
+    object btnLoginWithID: TButton
+      Left = 80
+      Top = 272
+      Width = 153
+      Height = 25
+      Caption = 'btnLoginWithID'
+      TabOrder = 4
+      OnClick = btnLoginWithIDClick
+    end
+  end
+  object PageControl1: TPageControl
+    Left = 143
+    Top = 443
+    Width = 289
+    Height = 49
+    ActivePage = TabSheet2
+    TabOrder = 2
+    TabWidth = 200
+    object TabSheet1: TTabSheet
+      Caption = 'TabSheet1'
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'TabSheet2'
+      ImageIndex = 1
+    end
+  end
+  object grpRegister: TGroupBox
+    Left = 359
+    Top = 47
+    Width = 233
+    Height = 337
+    TabOrder = 3
+    object lblRegisterIntro: TLabel
+      Left = 24
+      Top = 133
+      Width = 191
+      Height = 39
+      Caption = 
+        'Don'#39't have a registered client account? '#13#10'Not to worry, create y' +
+        'our free account '#13#10'by a click of the button below.'
+    end
+    object pnlRegister: TPanel
+      Left = 3
+      Top = 3
+      Width = 227
+      Height = 54
+      Caption = 'Registration'
+      TabOrder = 0
+    end
+    object btnRegister: TButton
+      Left = 40
+      Top = 264
+      Width = 169
+      Height = 25
+      Caption = 'btnRegister'
+      TabOrder = 1
+      OnClick = btnRegisterClick
+    end
+  end
+end

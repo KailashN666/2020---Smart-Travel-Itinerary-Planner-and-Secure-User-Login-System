@@ -1,0 +1,147 @@
+object frmProcessingBooking: TfrmProcessingBooking
+  Left = 0
+  Top = 0
+  Caption = 'frmProcessingBooking'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lblClientUsername: TLabel
+    Left = 256
+    Top = 47
+    Width = 85
+    Height = 13
+    Caption = 'lblClientUsername'
+  end
+  object grpTickets: TGroupBox
+    Left = 0
+    Top = 80
+    Width = 297
+    Height = 377
+    Caption = 'grpTickets'
+    TabOrder = 0
+    object lblTravellingTo: TLabel
+      Left = 24
+      Top = 40
+      Width = 101
+      Height = 13
+      Caption = 'You are travelling to:'
+    end
+    object lblCostOfTicket: TLabel
+      Left = 24
+      Top = 88
+      Width = 89
+      Height = 13
+      Caption = 'Cost of one ticket:'
+    end
+    object lblAmtTickets: TLabel
+      Left = 16
+      Top = 177
+      Width = 159
+      Height = 13
+      Caption = 'How many tickets would you like?'
+    end
+    object spnAmtTickets: TSpinEdit
+      Left = 152
+      Top = 168
+      Width = 121
+      Height = 22
+      MaxValue = 0
+      MinValue = 1
+      TabOrder = 0
+      Value = 0
+    end
+  end
+  object pnlProcessingBooking: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'pnlProcessingBooking'
+    TabOrder = 1
+  end
+  object grpAccommodation: TGroupBox
+    Left = 303
+    Top = 80
+    Width = 297
+    Height = 377
+    Caption = 'grpAccommodation'
+    TabOrder = 2
+    object lblHotel: TLabel
+      Left = 32
+      Top = 40
+      Width = 157
+      Height = 13
+      Caption = 'The place you will be staying at: '
+    end
+    object lblCostPerNight: TLabel
+      Left = 32
+      Top = 93
+      Width = 91
+      Height = 13
+      Caption = 'The cost per night:'
+    end
+    object lblAmtNights: TLabel
+      Left = 32
+      Top = 177
+      Width = 166
+      Height = 13
+      Caption = 'How many nights will you stay for?'
+    end
+    object edtHotel: TEdit
+      Left = 152
+      Top = 32
+      Width = 121
+      Height = 21
+      Enabled = False
+      TabOrder = 0
+      Text = 'edtHotel'
+    end
+    object edtCostPerNight: TEdit
+      Left = 152
+      Top = 85
+      Width = 121
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+      Text = 'edtCostPerNight'
+    end
+    object spnAmtNights: TSpinEdit
+      Left = 152
+      Top = 168
+      Width = 121
+      Height = 22
+      MaxValue = 0
+      MinValue = 1
+      TabOrder = 2
+      Value = 0
+    end
+  end
+  object edtTicketCost: TEdit
+    Left = 152
+    Top = 165
+    Width = 121
+    Height = 21
+    Enabled = False
+    TabOrder = 3
+    Text = 'edtTicketCost'
+  end
+  object edtDestination: TEdit
+    Left = 152
+    Top = 117
+    Width = 121
+    Height = 21
+    Enabled = False
+    TabOrder = 4
+    Text = 'edtDestination'
+  end
+end

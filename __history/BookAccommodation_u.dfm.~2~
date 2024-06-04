@@ -1,0 +1,104 @@
+object frmAccommodation: TfrmAccommodation
+  Left = 0
+  Top = 0
+  Caption = 'Accommodation'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object img1: TImage
+    Left = 265
+    Top = 48
+    Width = 327
+    Height = 209
+  end
+  object img2: TImage
+    Left = 265
+    Top = 262
+    Width = 105
+    Height = 74
+    OnClick = img2Click
+  end
+  object img3: TImage
+    Left = 376
+    Top = 262
+    Width = 105
+    Height = 74
+    OnClick = img3Click
+  end
+  object img4: TImage
+    Left = 487
+    Top = 262
+    Width = 105
+    Height = 74
+    OnClick = img4Click
+  end
+  object lblDestinationChoice: TLabel
+    Left = 48
+    Top = 61
+    Width = 96
+    Height = 13
+    Caption = 'lblDestinationChoice'
+  end
+  object imgTemp: TImage
+    Left = 0
+    Top = 440
+    Width = 50
+    Height = 65
+    Visible = False
+  end
+  object pnlAccommodation: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'pnlAccommodation'
+    TabOrder = 0
+  end
+  object cmbHotelChoice: TComboBox
+    Left = 8
+    Top = 80
+    Width = 251
+    Height = 22
+    Style = csOwnerDrawFixed
+    TabOrder = 1
+    OnClick = cmbHotelChoiceClick
+  end
+  object grpDetails: TGroupBox
+    Left = 8
+    Top = 183
+    Width = 251
+    Height = 209
+    TabOrder = 2
+    object lblCost: TLabel
+      Left = 24
+      Top = 88
+      Width = 32
+      Height = 13
+      Caption = 'lblCost'
+      Visible = False
+    end
+  end
+  object redInfo: TRichEdit
+    Left = 265
+    Top = 361
+    Width = 327
+    Height = 131
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    Visible = False
+  end
+end

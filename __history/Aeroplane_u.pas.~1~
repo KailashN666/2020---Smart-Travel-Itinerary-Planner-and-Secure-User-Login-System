@@ -1,0 +1,100 @@
+unit Aeroplane_u;
+
+interface
+
+Uses
+  SysUtils, TravelNowDB_u, DB;
+
+Type
+  TAeroplane = Class(TObject)
+    Private
+      fAeroplaneID : String;
+      fAirlineName : String;
+      fDestination : String;
+      fDepartureLocation : String;
+      fTotalNumOfSeats : Integer;
+      fNumSeatsAvail : Integer;
+      fNumOfSeatsOccupied : Integer;
+      fDepartureDate : String;
+    Public
+      Constructor Create(sDestination : String);
+      Function GetAeroplaneID : String;
+      Function GetAirlineName : String;
+      Function GetDestination : String;
+      Function GetDepartureLocation : String;
+      Function GetTotalNumSeats : Integer;
+      Function GetNumSeatsOccupied : Integer;
+      Function GetDepartureDate : String;
+      Function GetNumSeatsAvail : Integer;
+      Procedure AddNumSeatsOccupied (iTickets : Integer);
+  End;
+implementation
+
+{ TAeroplane }
+
+procedure TAeroplane.AddNumSeatsOccupied(iTickets : Integer);
+begin
+  fNumOfseatsOccupied := fNumOfseatsOccupied + iTickets;
+end;
+
+constructor TAeroplane.Create(sDestination : String);
+begin
+  With DBTravelNow Do
+  Begin
+    qryTravelNow.SQL.Clear;
+    qryTravelNow.SQL.Add('Select * From TblAeroplane Where Destination =' + sDestination);
+    qryTravelNow.SQL.Add('Format (DepartureDate, ''dd-mmmm-yyyy'') As DepartureDate');
+    qryTravelNow.Open;
+
+    fAeroplaneID := qryTravelNow.FieldByName('AeroplaneID').AsString;
+    fAirlineName := qryTravelNow.FieldByName('AirlineName').AsString;
+    fDestination := qryTravelNow.FieldByName('Destination').AsString;
+    fDepartureLocation := qryTravelNow.FieldByName('DepartureLocation').AsString;
+    fTotalNumOfSeats := qryTravelNow.FieldByName('TotalNumOfSeats').AsInteger;
+    fNumSeatsAvail := qryTravelNow.FieldByName('NumOfSeatsAvailable').AsInteger;
+    fNumOfSeatsOccupied := fTotalNumOfSeats - fNumSeatsAvail;
+    fDepartureDate := qryTravelNow.FieldByName('DepartureDate').AsString;
+  End;
+end;
+
+function TAeroplane.GetAeroplaneID: String;
+begin
+  Result := fAeroplaneID;
+end;
+
+function TAeroplane.GetAirlineName: String;
+begin
+  Result := fAirlineName;
+end;
+
+function TAeroplane.GetDepartureDate: String;
+begin
+  Result := fDepartureDate;
+end;
+
+function TAeroplane.GetDepartureLocation: String;
+begin
+  Result := fDepartureLocation;
+end;
+
+function TAeroplane.GetDestination: String;
+begin
+  Result := fDestination;
+end;
+
+function TAeroplane.GetNumSeatsAvail: Integer;
+begin
+  Result := fNumSeatsAvail;
+end;
+
+function TAeroplane.GetNumSeatsOccupied: Integer;
+begin
+  Result := fNumOfseatsOccupied;
+end;
+
+function TAeroplane.GetTotalNumSeats: Integer;
+begin
+  Result := fTotalNumOfSeats;
+end;
+
+end.

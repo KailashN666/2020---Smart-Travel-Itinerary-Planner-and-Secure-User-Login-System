@@ -1,0 +1,23 @@
+unit TravelNowDB_u;
+
+interface
+
+uses
+  SysUtils, Classes;
+
+type
+  TDBTravelNow = class(TDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DBTravelNow: TDBTravelNow;
+
+implementation
+
+{$R *.dfm}
+
+end.

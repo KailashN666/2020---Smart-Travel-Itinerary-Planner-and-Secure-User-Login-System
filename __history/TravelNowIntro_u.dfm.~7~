@@ -1,0 +1,89 @@
+object frmIntroductoryScreen: TfrmIntroductoryScreen
+  Left = 0
+  Top = 0
+  Caption = 'Welcome to TravelNow!'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clGradientActiveCaption
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTitle: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'TravelNow'
+    TabOrder = 0
+  end
+  object grpUserType: TGroupBox
+    Left = 88
+    Top = 128
+    Width = 425
+    Height = 329
+    TabOrder = 1
+    object lblClientRegistration: TLabel
+      Left = 96
+      Top = 270
+      Width = 248
+      Height = 13
+      Caption = 'Don'#39't have an Account? Click here and sign up now!'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = lblClientRegistrationClick
+    end
+    object lblUnderscore: TLabel
+      Left = 96
+      Top = 275
+      Width = 246
+      Height = 13
+      Caption = '_________________________________________'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object pnlIntroMessage: TPanel
+      Left = 0
+      Top = 0
+      Width = 425
+      Height = 65
+      Align = alCustom
+      TabOrder = 0
+      object lblIntroMessage: TLabel
+        Left = -24
+        Top = 24
+        Width = 491
+        Height = 13
+        Caption = 
+          'Welcome to the TravelNow Application! Are you the Administrator,' +
+          ' an Employee of TravelNow or a Cli?'
+      end
+    end
+    object rgpUserType: TRadioGroup
+      Left = 128
+      Top = 103
+      Width = 185
+      Height = 153
+      Caption = 'I am...'
+      Items.Strings = (
+        'The Administrator'
+        'An Employee'
+        'A Client')
+      TabOrder = 1
+      OnClick = rgpUserTypeClick
+    end
+  end
+end

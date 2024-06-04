@@ -1,0 +1,175 @@
+unit IDClientLogin_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, TravelNowDB_u;
+
+type
+  TfrmClientIDLogin = class(TForm)
+    grpFindProfile: TGroupBox;
+    pnlFindingProfile: TPanel;
+    lblInputID: TLabel;
+    edtIDInput: TEdit;
+    btnFindMyProfile: TButton;
+    grpVerificationQuestions: TGroupBox;
+    lblQuestion1: TLabel;
+    lblQuestion2: TLabel;
+    lblQuestion3: TLabel;
+    edtAnswer1: TEdit;
+    edtAnswer2: TEdit;
+    edtAnswer3: TEdit;
+    btnSubmitAnswers: TButton;
+    grpDisplayProfile: TGroupBox;
+    lblYourUsernameIs: TLabel;
+    lblYourPasswordIs: TLabel;
+    lblUsername: TLabel;
+    lblPassword: TLabel;
+    procedure btnFindMyProfileClick(Sender: TObject);
+    Function IDNumPresentInClient (sID : String): Boolean;
+    procedure btnSubmitAnswersClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmClientIDLogin: TfrmClientIDLogin;
+  sIDNum : String;
+implementation
+
+{$R *.dfm}
+
+procedure TfrmClientIDLogin.btnFindMyProfileClick(Sender: TObject);
+Var
+  bValid : Boolean;
+  I: Integer;
+begin
+  sIDNum := edtIDInput.Text;
+  bValid := True;
+
+  if (sIDNum <> '') and (Length(sIDNum) = 13) then
+  Begin
+    for I := 1 to Length(sIDNum) do
+    begin
+      if Not(sIDNum[I] IN ['0'..'9']) then
+      Begin
+        bValid := False;
+      End;
+    end;
+
+    if bValid = False then
+    Begin
+      MessageDlg('The ID Number entered is not of acceptable format, please ensure you enter a valid ID Number.', mtError, mbOKCancel, 0);
+    End
+    Else
+    Begin
+      If MessageDlg('You are attempting to locate an account attached to the ID Number ' +#13+ sIDNum +#13+ 'Can you confirm this?', mtConfirmation, mbYesNo, 0) = mrYes Then
+      Begin
+        if IDNumPresentInClient(sIDNum) = True then
+        Begin
+          edtIDInput.Enabled := False;
+          btnFindMyProfile.Enabled := False;
+
+          With DBTravelNow Do
+          Begin
+            tblClient.Open;
+            tblClient.First;
+
+            for I := 1 to tblClient.RecordCount do
+            begin
+              if tblClient['IDNumber'] = sIDNum then
+              Begin
+                lblQuestion1.Caption := tblClient['Question1'];
+                lblQuestion2.Caption := tblClient['Question2'];
+                lblQuestion3.Caption := tblClient['Question3'];
+                Break
+              End;
+
+              tblClient.Next;
+            end;
+
+            tblClient.Close;
+          End;
+
+          MessageDlg('Please answer atleast 2 of the 3 questions below correctly in order to recieve your login details.', mtInformation, mbOKCancel, 0);
+        End
+        Else
+        Begin
+          MessageDlg('The ID Number is not presesnt in the Database, please check the ID number that you have provided.',mtError, mbOKCancel, 0);
+          edtIDInput.Clear;
+          edtIDInput.SetFocus;
+        End;
+      End
+      Else
+      Begin
+        edtIDInput.Clear;
+        edtIDInput.SetFocus;
+        MessageDlg('Please enter an ID Number you would like to search for', mtInformation, mbOKCancel, 0);
+      End;
+    End;
+  End
+  Else
+  Begin
+    MessageDlg('The ID Number entered is not of acceptable format, please ensure you enter a valid ID Number.', mtError, mbOKCancel, 0);
+  End;
+end;
+
+procedure TfrmClientIDLogin.btnSubmitAnswersClick(Sender: TObject);
+Var
+  sAnswer1, sAnswer2, sAnswer3 : String;
+  iNumCorrect : Integer;
+  bInvalidAnswers : Boolean;
+begin
+  sAnswer1 := edtAnswer1.Text;
+  sAnswer2 := edtAnswer2.Text;
+  sAnswer3 := edtAnswer3.Text;
+
+  bInvalidAnswers := False;
+
+  if (sAnswer1 = '') or (sAnswer2 = '') or (sAnswer3 = '') then
+  Begin
+    bInvalidAnswers := True;
+  End;
+
+  if bInvalidAnswers = False then
+  Begin
+
+  End
+  Else
+  Begin
+    MessageDlg('Please ensure that you are inputting the correct answers.', mtWarning, mbOKCancel, 0);
+  End;
+end;
+
+function TfrmClientIDLogin.IDNumPresentInClient(sID: String): Boolean;
+Var
+  bFound : Boolean;
+  I: Integer;
+begin
+  bFound := False;
+
+  With DBTravelNow Do
+  Begin
+    tblClient.Open;
+    tblClient.First;
+
+    for I := 1 to tblClient.RecordCount do
+    begin
+      if tblClient['IDNumber'] = sID then
+      Begin
+        bFound := True;
+      End;
+
+      tblClient.Next;
+    end;
+
+    tblClient.Close;
+
+    Result := bFound;
+  End;
+end;
+
+end.

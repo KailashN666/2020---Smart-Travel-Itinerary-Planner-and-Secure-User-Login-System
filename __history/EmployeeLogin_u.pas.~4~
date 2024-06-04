@@ -1,0 +1,116 @@
+unit EmployeeLogin_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, TravelNowDB_u;
+
+type
+  TfrmEmployeeLogin = class(TForm)
+    pnlEmployeeLogin: TPanel;
+    grpEmployeeLoginDetails: TGroupBox;
+    lblUsername: TLabel;
+    lblPassword: TLabel;
+    edtUsername: TEdit;
+    edtPassword: TEdit;
+    btnLogin: TButton;
+    procedure btnLoginClick(Sender: TObject);
+    Function IsUsernamePresentInEmployee(sUsername : String):Boolean;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmEmployeeLogin: TfrmEmployeeLogin;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmEmployeeLogin.btnLoginClick(Sender: TObject);
+Var
+  sName, sUsername, sPassword : String;
+  I: Integer;
+begin
+  sUsername := edtUsername.Text;
+  sPassword := edtPassword.Text;
+
+  if (sUsername <> '') and (sPassword <> '')  then
+  Begin
+    if IsUsernamePresentInEmployee(sUsername) = True then
+    Begin
+      With DBTravelNow do
+      Begin
+        tblEmployee.Open;
+        tblEmployee.First;
+
+        for I := 1 to tblEmployee.RecordCount do
+        begin
+          if Uppercase(sUsername) = Uppercase(tblEmployee['Username']) then
+          Begin
+            if Uppercase(sPassword) = Uppercase(tblEmployee['Password']) then
+            Begin
+              sName := tblEmployee['EmployeeName'];
+              MessageDlg('Welcome ' + sName, mtInformation, mbOKCancel, 0);
+            End
+            Else
+            Begin
+              MessageDlg('The password that you have entered is incorrect.', mtError, mbOKCancel, 0);
+              edtPassword.Clear;
+            End;
+          End;
+
+          tblEmployee.Next;
+        end;
+
+        tblEmployee.Close;
+      End;
+    End
+    Else
+    Begin
+      edtUsername.Clear;
+      edtPassword.Clear;
+      MessageDlg('The Employee username does not exist in the database.', mtError, mbOKCancel, 0);
+    End;
+  End
+  Else
+  Begin
+    edtUsername.Clear;
+    edtPassword.Clear;
+    MessageDlg('Please enter valid information', mtError, mbOKCancel, 0);
+  End;
+end;
+
+function TfrmEmployeeLogin.IsUsernamePresentInEmployee(
+  sUsername: String): Boolean;
+Var
+  bPresent : Boolean;
+  I : Integer;
+begin
+  bPresent := False;
+
+  With DBTravelNow Do
+  Begin
+    tblEmployee.Open;
+    tblEmployee.First;
+
+    for I := 1 to tblEmployee do
+    Begin
+      if UpperCase(sUsername) = UpperCase(tblEmployee['Username']) then
+      Begin
+        bPresent := True;
+      End;
+
+      tblEmployee.Next;
+    End;
+
+    tblEmployee.Close;
+  End;
+
+  Result := bPresent;
+end;
+
+end.

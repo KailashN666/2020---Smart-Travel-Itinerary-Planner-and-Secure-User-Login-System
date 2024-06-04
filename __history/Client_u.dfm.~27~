@@ -1,0 +1,343 @@
+object frmClient: TfrmClient
+  Left = 0
+  Top = 0
+  Caption = 'Client'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pcClient: TPageControl
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 505
+    ActivePage = tsProfile
+    TabOrder = 0
+    object tsBooking: TTabSheet
+      Caption = 'tsBooking'
+      object lblDestination1: TLabel
+        Left = 104
+        Top = 54
+        Width = 70
+        Height = 13
+        Caption = 'lblDestination1'
+      end
+      object lblDestination5: TLabel
+        Left = 383
+        Top = 394
+        Width = 70
+        Height = 13
+        Caption = 'lblDestination5'
+      end
+      object lblDestination2: TLabel
+        Left = 264
+        Top = 54
+        Width = 70
+        Height = 13
+        Caption = 'lblDestination2'
+      end
+      object lblDestination4: TLabel
+        Left = 130
+        Top = 394
+        Width = 70
+        Height = 13
+        Caption = 'lblDestination4'
+      end
+      object lblDestination3: TLabel
+        Left = 432
+        Top = 54
+        Width = 70
+        Height = 13
+        Caption = 'lblDestination3'
+      end
+      object imgDest2: TImage
+        Left = 215
+        Top = 73
+        Width = 162
+        Height = 153
+        Stretch = True
+        OnClick = imgDest2Click
+      end
+      object imgDest5: TImage
+        Left = 295
+        Top = 232
+        Width = 249
+        Height = 156
+        Stretch = True
+        OnClick = imgDest5Click
+      end
+      object imgDest3: TImage
+        Left = 383
+        Top = 73
+        Width = 161
+        Height = 153
+        Stretch = True
+        OnClick = imgDest3Click
+      end
+      object imgDest1: TImage
+        Left = 47
+        Top = 73
+        Width = 162
+        Height = 153
+        Stretch = True
+        OnClick = imgDest1Click
+      end
+      object imgDest4: TImage
+        Left = 48
+        Top = 232
+        Width = 241
+        Height = 156
+        Stretch = True
+        OnClick = imgDest4Click
+      end
+      object btnProceedToBooking: TButton
+        Left = 215
+        Top = 433
+        Width = 153
+        Height = 25
+        Caption = 'btnProceedToBooking'
+        TabOrder = 0
+        OnClick = btnProceedToBookingClick
+      end
+      object pnlSpecialDeals: TPanel
+        Left = -4
+        Top = 0
+        Width = 597
+        Height = 41
+        Caption = 'pnlSpecialDeals'
+        TabOrder = 1
+      end
+    end
+    object tsNotifications: TTabSheet
+      Caption = 'tsNotifications'
+      ImageIndex = 1
+      object cmbNotifications: TComboBox
+        Left = 192
+        Top = 48
+        Width = 145
+        Height = 21
+        TabOrder = 0
+        Text = 'cmbNotifications'
+        OnClick = cmbNotificationsClick
+      end
+      object redDetails: TRichEdit
+        Left = 168
+        Top = 88
+        Width = 217
+        Height = 129
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+      object grpRead: TGroupBox
+        Left = 168
+        Top = 223
+        Width = 217
+        Height = 74
+        TabOrder = 2
+        object btnMarkRead: TButton
+          Left = 16
+          Top = 24
+          Width = 75
+          Height = 25
+          Caption = 'btnMarkRead'
+          TabOrder = 0
+          OnClick = btnMarkReadClick
+        end
+        object btnMarkAllRead: TButton
+          Left = 120
+          Top = 24
+          Width = 75
+          Height = 25
+          Caption = 'btnMarkAllRead'
+          TabOrder = 1
+          OnClick = btnMarkAllReadClick
+        end
+      end
+    end
+    object tsHistory: TTabSheet
+      Caption = 'tsHistory'
+      ImageIndex = 2
+      object redHistory: TRichEdit
+        Left = 0
+        Top = 0
+        Width = 593
+        Height = 361
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ScrollBars = ssVertical
+        TabOrder = 0
+      end
+      object btnDeleteHistory: TButton
+        Left = 248
+        Top = 376
+        Width = 75
+        Height = 25
+        Caption = 'btnDeleteHistory'
+        TabOrder = 1
+        OnClick = btnDeleteHistoryClick
+      end
+    end
+    object tsProfile: TTabSheet
+      Caption = 'tsProfile'
+      ImageIndex = 3
+      object lblUsername: TLabel
+        Left = 40
+        Top = 40
+        Width = 58
+        Height = 13
+        Caption = 'lblUsername'
+      end
+      object lblName: TLabel
+        Left = 40
+        Top = 80
+        Width = 37
+        Height = 13
+        Caption = 'lblName'
+      end
+      object lblSurname: TLabel
+        Left = 40
+        Top = 120
+        Width = 52
+        Height = 13
+        Caption = 'lblSurname'
+      end
+      object lblContactNumber: TLabel
+        Left = 40
+        Top = 168
+        Width = 85
+        Height = 13
+        Caption = 'lblContactNumber'
+      end
+      object lblID: TLabel
+        Left = 40
+        Top = 208
+        Width = 21
+        Height = 13
+        Caption = 'lblID'
+      end
+      object lblDOB: TLabel
+        Left = 40
+        Top = 248
+        Width = 31
+        Height = 13
+        Caption = 'lblDOB'
+      end
+      object lblEmail: TLabel
+        Left = 40
+        Top = 296
+        Width = 34
+        Height = 13
+        Caption = 'lblEmail'
+      end
+      object pnlEmail: TPanel
+        Left = 304
+        Top = 289
+        Width = 185
+        Height = 27
+        Caption = 'pnlEmail'
+        TabOrder = 0
+      end
+      object pnlID: TPanel
+        Left = 304
+        Top = 200
+        Width = 185
+        Height = 29
+        Caption = 'pnlID'
+        TabOrder = 1
+      end
+      object pnlContactNumber: TPanel
+        Left = 304
+        Top = 146
+        Width = 185
+        Height = 33
+        Caption = 'pnlContactNumber'
+        TabOrder = 2
+      end
+      object pnlSurname: TPanel
+        Left = 304
+        Top = 114
+        Width = 185
+        Height = 26
+        Caption = 'pnlSurname'
+        TabOrder = 3
+      end
+      object pnlName: TPanel
+        Left = 304
+        Top = 74
+        Width = 185
+        Height = 25
+        Caption = 'pnlName'
+        TabOrder = 4
+      end
+      object pnlUsername: TPanel
+        Left = 304
+        Top = 26
+        Width = 185
+        Height = 27
+        Caption = 'pnlUsername'
+        TabOrder = 5
+      end
+      object dtpDOB: TDateTimePicker
+        Left = 304
+        Top = 248
+        Width = 186
+        Height = 21
+        Date = 44041.503294328700000000
+        Time = 44041.503294328700000000
+        Enabled = False
+        TabOrder = 6
+      end
+      object edtChange: TEdit
+        Left = 328
+        Top = 344
+        Width = 121
+        Height = 21
+        TabOrder = 7
+        Visible = False
+      end
+      object cmbChange: TComboBox
+        Left = 40
+        Top = 344
+        Width = 145
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 8
+        TextHint = 'Select Change'
+        OnClick = cmbChangeClick
+        Items.Strings = (
+          'Name'
+          'Surname'
+          'Contact Number'
+          'Email')
+      end
+      object btnSubmitChange: TButton
+        Left = 232
+        Top = 376
+        Width = 75
+        Height = 25
+        Caption = 'btnSubmitChange'
+        TabOrder = 9
+        Visible = False
+        OnClick = btnSubmitChangeClick
+      end
+    end
+  end
+end

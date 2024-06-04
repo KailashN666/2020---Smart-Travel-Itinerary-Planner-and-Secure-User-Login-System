@@ -1,0 +1,67 @@
+unit EmployeeLogin_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, TravelNowDB_u;
+
+type
+  TfrmEmployeeLogin = class(TForm)
+    pnlEmployeeLogin: TPanel;
+    grpEmployeeLoginDetails: TGroupBox;
+    lblUsername: TLabel;
+    lblPassword: TLabel;
+    edtUsername: TEdit;
+    edtPassword: TEdit;
+    btnLogin: TButton;
+    procedure btnLoginClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmEmployeeLogin: TfrmEmployeeLogin;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmEmployeeLogin.btnLoginClick(Sender: TObject);
+Var
+  sName, sUsername, sPassword : String;
+  I: Integer;
+  bFound : Boolean;
+begin
+  sUsername := edtUsername.Text;
+  sPassword := edtPassword.Text;
+
+  if (sUsername <> '') and (sPassword <> '')  then
+  Begin
+    bFound := False;
+
+    With DBTravelNow do
+    Begin
+      tblEmployee.Open;
+      tblEmployee.First;
+
+      for I := 1 to tblEmployee.RecordCount do
+      begin
+
+        tblEmployee.Next;
+      end;
+
+      tblEmployee.Close;
+    End;
+  End
+  Else
+  Begin
+    edtUsername.Clear;
+    edtPassword.Clear;
+    MessageDlg('Please enter valid information', mtError, mbOKCancel, 0);
+  End;
+end;
+
+end.

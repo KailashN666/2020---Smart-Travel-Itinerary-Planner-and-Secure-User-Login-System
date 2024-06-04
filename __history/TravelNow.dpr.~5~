@@ -1,0 +1,26 @@
+program TravelNow;
+
+uses
+  Forms,
+  TravelNowIntro_u in 'TravelNowIntro_u.pas' {frmIntroductoryScreen},
+  AdminLogin_u in 'AdminLogin_u.pas' {frmAdminLogin},
+  EmployeeLogin_u in 'EmployeeLogin_u.pas' {frmEmployeeLogin},
+  ClientLogin_u in 'ClientLogin_u.pas' {frmClientLogin},
+  RegisterNewClient_u in 'RegisterNewClient_u.pas' {frmRegisterNewClient},
+  IDClientLogin_u in 'IDClientLogin_u.pas' {frmClientIDLogin},
+  TravelNowDB_u in 'TravelNowDB_u.pas' {DBTravelNow: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmIntroductoryScreen, frmIntroductoryScreen);
+  Application.CreateForm(TfrmAdminLogin, frmAdminLogin);
+  Application.CreateForm(TfrmEmployeeLogin, frmEmployeeLogin);
+  Application.CreateForm(TfrmClientLogin, frmClientLogin);
+  Application.CreateForm(TfrmRegisterNewClient, frmRegisterNewClient);
+  Application.CreateForm(TfrmClientIDLogin, frmClientIDLogin);
+  Application.CreateForm(TDBTravelNow, DBTravelNow);
+  Application.Run;
+end.

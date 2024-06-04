@@ -1,0 +1,547 @@
+object frmAdmin: TfrmAdmin
+  Left = 0
+  Top = 0
+  Caption = 'frmAdmin'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pcAdmin: TPageControl
+    Left = 0
+    Top = 40
+    Width = 601
+    Height = 465
+    ActivePage = tsAirTravel
+    TabOrder = 0
+    object tsEmployee: TTabSheet
+      Caption = 'tsEmployee'
+      object dbEmployees: TDBGrid
+        Left = 0
+        Top = 3
+        Width = 593
+        Height = 174
+        DataSource = DBTravelNow.dsTravelNow
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object btnDisplayAllEmployees: TButton
+        Left = 16
+        Top = 213
+        Width = 75
+        Height = 25
+        Caption = 'btnDisplayAllEmployees'
+        TabOrder = 1
+        OnClick = btnDisplayAllEmployeesClick
+      end
+      object btnSearchForAnEmployee: TButton
+        Left = 16
+        Top = 261
+        Width = 75
+        Height = 25
+        Caption = 'btnSearchForAnEmployee'
+        TabOrder = 2
+        OnClick = btnSearchForAnEmployeeClick
+      end
+      object grpAddEmployee: TGroupBox
+        Left = 119
+        Top = 183
+        Width = 175
+        Height = 233
+        Caption = 'grpAddEmployee'
+        TabOrder = 3
+        object lblName: TLabel
+          Left = 3
+          Top = 88
+          Width = 37
+          Height = 13
+          Caption = 'lblName'
+        end
+        object lblSurname: TLabel
+          Left = 3
+          Top = 120
+          Width = 52
+          Height = 13
+          Caption = 'lblSurname'
+        end
+        object lblPassword: TLabel
+          Left = 0
+          Top = 176
+          Width = 56
+          Height = 13
+          Caption = 'lblPassword'
+        end
+        object lblUsername: TLabel
+          Left = -3
+          Top = 139
+          Width = 58
+          Height = 13
+          Caption = 'lblUsername'
+        end
+        object btnAddEmployee: TButton
+          Left = 40
+          Top = 32
+          Width = 75
+          Height = 25
+          Caption = 'btnAddEmployee'
+          TabOrder = 0
+          OnClick = btnAddEmployeeClick
+        end
+        object edtName: TEdit
+          Left = 32
+          Top = 80
+          Width = 121
+          Height = 21
+          Enabled = False
+          TabOrder = 1
+          Text = 'Kailash'
+        end
+        object edtSurname: TEdit
+          Left = 40
+          Top = 107
+          Width = 121
+          Height = 21
+          Enabled = False
+          TabOrder = 2
+          Text = 'Nagasar'
+        end
+        object edtPassword: TEdit
+          Left = 40
+          Top = 178
+          Width = 121
+          Height = 21
+          Enabled = False
+          TabOrder = 3
+          Text = 'password'
+        end
+        object edtUsername: TEdit
+          Left = 40
+          Top = 134
+          Width = 121
+          Height = 21
+          Enabled = False
+          TabOrder = 4
+          Text = 'KaiN'
+        end
+        object btnSubmitEmployee: TButton
+          Left = 40
+          Top = 205
+          Width = 75
+          Height = 25
+          Caption = 'btnSubmitEmployee'
+          Enabled = False
+          TabOrder = 5
+          OnClick = btnSubmitEmployeeClick
+        end
+      end
+      object grpEditEmployee: TGroupBox
+        Left = 300
+        Top = 183
+        Width = 154
+        Height = 234
+        Caption = 'grpEditEmployee'
+        TabOrder = 4
+        object edtFindEmployee: TEdit
+          Left = 16
+          Top = 32
+          Width = 121
+          Height = 21
+          TabOrder = 0
+          Text = 'Kailash_N'
+        end
+        object btnFindEmployee: TButton
+          Left = 40
+          Top = 59
+          Width = 75
+          Height = 25
+          Caption = 'btnFindEmployee'
+          TabOrder = 1
+          OnClick = btnFindEmployeeClick
+        end
+        object rgpEditEmployee: TRadioGroup
+          Left = 3
+          Top = 90
+          Width = 148
+          Height = 141
+          Caption = 'rgpEditEmployee'
+          Enabled = False
+          Items.Strings = (
+            'Change Name'
+            'Change Surname'
+            'Change Password')
+          TabOrder = 2
+          OnClick = rgpEditEmployeeClick
+        end
+      end
+      object grpDeleteEmployee: TGroupBox
+        Left = 460
+        Top = 183
+        Width = 130
+        Height = 234
+        Caption = 'grpDeleteEmployee'
+        TabOrder = 5
+        object btnDeleteEmployee: TButton
+          Left = 24
+          Top = 32
+          Width = 75
+          Height = 25
+          Caption = 'btnDeleteEmployee'
+          TabOrder = 0
+          OnClick = btnDeleteEmployeeClick
+        end
+        object btnSubmitDelete: TButton
+          Left = 24
+          Top = 160
+          Width = 75
+          Height = 25
+          Caption = 'btnSubmitDelete'
+          Enabled = False
+          TabOrder = 1
+          OnClick = btnSubmitDeleteClick
+        end
+        object edtDeleteEmp: TEdit
+          Left = 6
+          Top = 96
+          Width = 121
+          Height = 21
+          TabOrder = 2
+          Text = 'edtDeleteEmp'
+        end
+      end
+    end
+    object tsRevenue: TTabSheet
+      Caption = 'tsRevenue'
+      ImageIndex = 1
+      object dbRevenue: TDBGrid
+        Left = -4
+        Top = 0
+        Width = 597
+        Height = 137
+        DataSource = DBTravelNow.dsTravelNow
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object btnDisplayAllTransactions: TButton
+        Left = 24
+        Top = 184
+        Width = 75
+        Height = 25
+        Caption = 'btnDisplayAllTransactions'
+        TabOrder = 1
+        OnClick = btnDisplayAllTransactionsClick
+      end
+      object btnDisplayForSpecificClient: TButton
+        Left = 24
+        Top = 224
+        Width = 75
+        Height = 25
+        Caption = 'btnDisplayForSpecificClient'
+        TabOrder = 2
+        OnClick = btnDisplayForSpecificClientClick
+      end
+      object rgpSort: TRadioGroup
+        Left = 409
+        Top = 143
+        Width = 185
+        Height = 163
+        Caption = 'rgpSort'
+        Items.Strings = (
+          'Client Username Asc'
+          'Client Username Desc'
+          'Transaction ID Asc'
+          'Transaction ID Desc'
+          'Ticket Cost Asc'
+          'Ticket Cost Desc'
+          'Accomm Cost Asc'
+          'Accomm Cost Desc'
+          'Total Cost Asc'
+          'Total Cost Desc'
+          'Remove Changes')
+        TabOrder = 3
+        OnClick = rgpSortClick
+      end
+      object rgpFilterRecords: TRadioGroup
+        Left = 209
+        Top = 305
+        Width = 185
+        Height = 75
+        Caption = 'rgpFilterRecords'
+        Items.Strings = (
+          'Special Offer Booking'
+          'Normal Booking'
+          'Total Cost > 100 000'
+          'Total Cost <= 100 000'
+          'Remove Filters ')
+        TabOrder = 4
+        OnClick = rgpFilterRecordsClick
+      end
+      object btnHighestTicketSale: TButton
+        Left = 24
+        Top = 264
+        Width = 75
+        Height = 25
+        Caption = 'btnHighestTicketSale'
+        TabOrder = 5
+        OnClick = btnHighestTicketSaleClick
+      end
+      object btnHighestAccommodationSale: TButton
+        Left = 24
+        Top = 305
+        Width = 75
+        Height = 25
+        Caption = 'btnHighestAccommodationSale'
+        TabOrder = 6
+        OnClick = btnHighestAccommodationSaleClick
+      end
+      object btnHighestSale: TButton
+        Left = 24
+        Top = 352
+        Width = 75
+        Height = 25
+        Caption = 'btnHighestSale'
+        TabOrder = 7
+        OnClick = btnHighestSaleClick
+      end
+      object btnMostValuableClient: TButton
+        Left = 128
+        Top = 305
+        Width = 75
+        Height = 25
+        Caption = 'btnMostValuableClient'
+        TabOrder = 8
+        OnClick = btnMostValuableClientClick
+      end
+      object btnTotalTicketRevenue: TButton
+        Left = 128
+        Top = 184
+        Width = 75
+        Height = 25
+        Caption = 'btnTotalTicketRevenue'
+        TabOrder = 9
+        OnClick = btnTotalTicketRevenueClick
+      end
+      object btnTotalAccomRevenue: TButton
+        Left = 128
+        Top = 224
+        Width = 75
+        Height = 25
+        Caption = 'btnTotalAccomRevenue'
+        TabOrder = 10
+        OnClick = btnTotalAccomRevenueClick
+      end
+      object btnTotalRevenue: TButton
+        Left = 128
+        Top = 264
+        Width = 75
+        Height = 25
+        Caption = 'btnTotalRevenue'
+        TabOrder = 11
+        OnClick = btnTotalRevenueClick
+      end
+      object redRevenue: TRichEdit
+        Left = 209
+        Top = 186
+        Width = 185
+        Height = 103
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 12
+      end
+      object btnLowestAccomSale: TButton
+        Left = 120
+        Top = 392
+        Width = 75
+        Height = 25
+        Caption = 'btnLowestAccomSale'
+        TabOrder = 13
+        OnClick = btnLowestAccomSaleClick
+      end
+      object btnLowestTicketSale: TButton
+        Left = 24
+        Top = 392
+        Width = 75
+        Height = 25
+        Caption = 'btnLowestTicketSale'
+        TabOrder = 14
+        OnClick = btnLowestTicketSaleClick
+      end
+      object btnLowestSale: TButton
+        Left = 209
+        Top = 392
+        Width = 75
+        Height = 25
+        Caption = 'btnLowestSale'
+        TabOrder = 15
+        OnClick = btnLowestSaleClick
+      end
+      object rgpGroup: TRadioGroup
+        Left = 409
+        Top = 312
+        Width = 185
+        Height = 81
+        Caption = 'rgpGroup'
+        Items.Strings = (
+          'Total Ticket Cost'
+          'Total Accommodation Cost'
+          'Total Trip Cost'
+          'Remove Grouping')
+        TabOrder = 16
+        OnClick = rgpGroupClick
+      end
+      object btnClearAllTransactionData: TButton
+        Left = 304
+        Top = 392
+        Width = 75
+        Height = 25
+        Caption = 'btnClearAllTransactionData'
+        TabOrder = 17
+        OnClick = btnClearAllTransactionDataClick
+      end
+    end
+    object tsAirTravel: TTabSheet
+      Caption = 'tsAirTravel'
+      ImageIndex = 2
+      ExplicitLeft = 8
+      object dbAirTravel: TDBGrid
+        Left = -4
+        Top = 0
+        Width = 597
+        Height = 169
+        DataSource = DBTravelNow.dsTravelNow
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object btnDisplayAeroplanes: TButton
+        Left = 16
+        Top = 226
+        Width = 75
+        Height = 25
+        Caption = 'btnDisplayAeroplanes'
+        TabOrder = 1
+        OnClick = btnDisplayAeroplanesClick
+      end
+      object btnDisplayAirlines: TButton
+        Left = 16
+        Top = 273
+        Width = 75
+        Height = 25
+        Caption = 'btnDisplayAirlines'
+        TabOrder = 2
+        OnClick = btnDisplayAirlinesClick
+      end
+      object btnDisplayAirlineAndAeroplanes: TButton
+        Left = 16
+        Top = 312
+        Width = 75
+        Height = 25
+        Caption = 'btnDisplayAirlineAndAeroplanes'
+        TabOrder = 3
+        OnClick = btnDisplayAirlineAndAeroplanesClick
+      end
+      object grpSpecificAirlines: TGroupBox
+        Left = 184
+        Top = 225
+        Width = 185
+        Height = 184
+        Caption = 'grpSpecificAirlines'
+        TabOrder = 4
+        object lblDisplayAeroplanesUnderASpecificAirline: TLabel
+          Left = 3
+          Top = 32
+          Width = 199
+          Height = 13
+          Caption = 'lblDisplayAeroplanesUnderASpecificAirline'
+        end
+        object btnSearchForAirline: TButton
+          Left = 32
+          Top = 87
+          Width = 121
+          Height = 25
+          Caption = 'btnSearchForAirline'
+          TabOrder = 0
+          OnClick = btnSearchForAirlineClick
+        end
+      end
+      object grpUpdateAirline: TGroupBox
+        Left = 392
+        Top = 225
+        Width = 185
+        Height = 192
+        Caption = 'grpUpdateAirline'
+        TabOrder = 5
+        object lblAirlineContactDetails: TLabel
+          Left = 80
+          Top = 101
+          Width = 109
+          Height = 13
+          Caption = 'lblAirlineContactDetails'
+        end
+        object btnSubmitAirlineDetails: TButton
+          Left = 56
+          Top = 164
+          Width = 75
+          Height = 25
+          Caption = 'btnSubmitAirlineDetails'
+          Enabled = False
+          TabOrder = 0
+          OnClick = btnSubmitAirlineDetailsClick
+        end
+        object cmbUpdateAirline: TComboBox
+          Left = 24
+          Top = 32
+          Width = 145
+          Height = 22
+          Style = csOwnerDrawFixed
+          TabOrder = 1
+          OnClick = cmbUpdateAirlineClick
+        end
+        object edtAirlineContactDetails: TEdit
+          Left = 48
+          Top = 120
+          Width = 121
+          Height = 21
+          TabOrder = 2
+        end
+      end
+      object btnAirlinesMoreSeatsAvailableThan: TButton
+        Left = 16
+        Top = 343
+        Width = 105
+        Height = 25
+        Caption = 'btnAirlinesMoreSeatsAvailableThan'
+        TabOrder = 6
+        OnClick = btnAirlinesMoreSeatsAvailableThanClick
+      end
+    end
+  end
+  object pnlAdmin: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'pnlAdmin'
+    TabOrder = 1
+  end
+end

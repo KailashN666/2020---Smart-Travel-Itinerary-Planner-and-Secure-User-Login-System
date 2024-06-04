@@ -1,0 +1,263 @@
+object frmRegisterNewClient: TfrmRegisterNewClient
+  Left = 0
+  Top = 0
+  Caption = 'Client Registration'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clSilver
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlClientReg: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'Client Registration'
+    TabOrder = 0
+  end
+  object grpCompulsoryInfo: TGroupBox
+    Left = 8
+    Top = 47
+    Width = 385
+    Height = 274
+    TabOrder = 1
+    object lblSurname: TLabel
+      Left = 56
+      Top = 75
+      Width = 52
+      Height = 13
+      Caption = 'lblSurname'
+    end
+    object lblName: TLabel
+      Left = 56
+      Top = 47
+      Width = 37
+      Height = 13
+      Caption = 'lblName'
+    end
+    object lblContactNumber: TLabel
+      Left = 56
+      Top = 107
+      Width = 85
+      Height = 13
+      Caption = 'lblContactNumber'
+    end
+    object lblIDNumber: TLabel
+      Left = 56
+      Top = 126
+      Width = 58
+      Height = 13
+      Caption = 'lblIDNumber'
+    end
+    object lblDateOfBirth: TLabel
+      Left = 56
+      Top = 152
+      Width = 67
+      Height = 13
+      Caption = 'lblDateOfBirth'
+    end
+    object lblQuestions: TLabel
+      Left = 62
+      Top = 203
+      Width = 3
+      Height = 13
+    end
+    object pnlCompulsoryInfo: TPanel
+      Left = 0
+      Top = 0
+      Width = 393
+      Height = 41
+      Caption = 'Compulsory Info'
+      TabOrder = 0
+    end
+    object dtpDOB: TDateTimePicker
+      Left = 168
+      Top = 152
+      Width = 186
+      Height = 21
+      Date = 37714.889095497690000000
+      Time = 37714.889095497690000000
+      TabOrder = 1
+    end
+    object edtName: TEdit
+      Left = 192
+      Top = 47
+      Width = 121
+      Height = 21
+      TabOrder = 2
+      Text = 'Kailash'
+    end
+    object edtSurname: TEdit
+      Left = 192
+      Top = 74
+      Width = 121
+      Height = 21
+      TabOrder = 3
+      Text = 'Nagasar'
+    end
+    object edtContactNo: TEdit
+      Left = 192
+      Top = 101
+      Width = 121
+      Height = 21
+      TabOrder = 4
+      Text = '0839871357'
+    end
+    object edtIDNum: TEdit
+      Left = 192
+      Top = 125
+      Width = 121
+      Height = 21
+      TabOrder = 5
+      Text = '0304035615083'
+    end
+    object cmbVerification: TComboBox
+      Left = 112
+      Top = 214
+      Width = 145
+      Height = 21
+      TabOrder = 6
+      Text = 'cmbVerification'
+    end
+    object edtAnswer: TEdit
+      Left = 112
+      Top = 241
+      Width = 121
+      Height = 21
+      TabOrder = 7
+    end
+    object btnSubmitAnswer: TButton
+      Left = 279
+      Top = 222
+      Width = 75
+      Height = 25
+      Caption = 'btnSubmitAnswer'
+      TabOrder = 8
+      OnClick = btnSubmitAnswerClick
+    end
+  end
+  object grpExtraInfo: TGroupBox
+    Left = 407
+    Top = 47
+    Width = 185
+    Height = 274
+    TabOrder = 2
+    object pnlExtraInfo: TPanel
+      Left = 0
+      Top = 0
+      Width = 185
+      Height = 41
+      Caption = 'pnlExtraInfo'
+      TabOrder = 0
+    end
+    object pnlEmailQuestion: TPanel
+      Left = 3
+      Top = 47
+      Width = 161
+      Height = 134
+      TabOrder = 1
+      object lblEmailQuestion: TLabel
+        Left = 8
+        Top = 8
+        Width = 909
+        Height = 13
+        Caption = 
+          'Do you have an Email? We would use your email to alert you of an' +
+          'y exquisite deals. Your email will also be used to help you rega' +
+          'in access to your account should you forget your login details'
+      end
+      object rgpEmail: TRadioGroup
+        Left = 13
+        Top = 47
+        Width = 116
+        Height = 65
+        Items.Strings = (
+          'No'
+          'Yes')
+        TabOrder = 0
+        OnClick = rgpEmailClick
+      end
+    end
+    object pnlEnterEmail: TPanel
+      Left = 3
+      Top = 187
+      Width = 185
+      Height = 71
+      TabOrder = 2
+      Visible = False
+      object lblEnterEmail: TLabel
+        Left = 48
+        Top = 16
+        Width = 184
+        Height = 13
+        Caption = 'Please enter your Email address below'
+      end
+      object edtEmail: TEdit
+        Left = 48
+        Top = 35
+        Width = 121
+        Height = 21
+        TabOrder = 0
+        Text = 'Kailashnagasartutions@gmail.com'
+      end
+    end
+  end
+  object grpUsername: TGroupBox
+    Left = 8
+    Top = 327
+    Width = 584
+    Height = 130
+    TabOrder = 3
+    object lblUsername: TLabel
+      Left = 0
+      Top = 64
+      Width = 239
+      Height = 13
+      Caption = 'Please Enter a Username of your choice alongside'
+    end
+    object edtUsername: TEdit
+      Left = 264
+      Top = 64
+      Width = 121
+      Height = 21
+      Enabled = False
+      TabOrder = 0
+      Text = 'Kai_N'
+    end
+    object btnConfirmDetails: TButton
+      Left = 256
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'btnConfirmDetails'
+      TabOrder = 1
+      OnClick = btnConfirmDetailsClick
+    end
+    object btnConfirmUsername: TButton
+      Left = 256
+      Top = 91
+      Width = 75
+      Height = 25
+      Caption = 'btnConfirmUsername'
+      Enabled = False
+      TabOrder = 2
+      OnClick = btnConfirmUsernameClick
+    end
+  end
+  object btnProceedToClientScreen: TButton
+    Left = 264
+    Top = 467
+    Width = 75
+    Height = 25
+    Caption = 'btnProceedToClientScreen'
+    TabOrder = 4
+  end
+end

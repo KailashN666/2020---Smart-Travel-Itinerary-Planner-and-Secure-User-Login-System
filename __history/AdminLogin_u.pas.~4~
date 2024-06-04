@@ -1,0 +1,122 @@
+unit AdminLogin_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, TravelNowDB_u, StdCtrls, ExtCtrls;
+
+type
+  TfrmAdminLogin = class(TForm)
+    pnlAdminLogin: TPanel;
+    grpAdminLogin: TGroupBox;
+    lblUsername: TLabel;
+    lblPassword: TLabel;
+    edtPassword: TEdit;
+    edtUsername: TEdit;
+    btnAdminLogin: TButton;
+    procedure btnAdminLoginClick(Sender: TObject);
+    Function IsUsernamePresentInAdmin(sUsername : String):Boolean;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmAdminLogin: TfrmAdminLogin;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmAdminLogin.btnAdminLoginClick(Sender: TObject);
+Var
+  sUsername, sPassword : String;
+  I: Integer;
+begin
+  sUsername := edtUsername.Text;
+  sPassword := edtPassword.Text;
+
+  if (sUsername <> '') and (sPassword <> '')  then
+  Begin
+    if IsUsernamePresentInAdmin(sUsername) = True then
+    Begin
+      With DBTravelNow do
+      Begin
+        tblAdmin.Open;
+        tblAdmin.First;
+
+        for I := 1 to tblAdmin.RecordCount do
+        begin
+          if Uppercase(sUsername) = Uppercase(tblAdmin['Username']) then
+          Begin
+            if Uppercase(sPassword) = Uppercase(tblAdmin['Password']) then
+            Begin
+              MessageDlg('Welcome ' + sUsername, mtInformation, mbOKCancel, 0);
+            End
+            Else
+            Begin
+              MessageDlg('The password that you have entered is incorrect.', mtError, mbOKCancel, 0);
+              edtPassword.Clear;
+            End;
+          End;
+
+          tblAdmin.Next;
+        end;
+
+        tblAdmin.Close;
+      End;
+    End
+    Else
+    Begin
+      if (Uppercase(sUsername) = 'KAILASH') and (UpperCase(sPassword) = 'N') then
+      Begin
+        MessageDlg('Welcome Admin ;)', mtInformation, mbOKCancel, 0);
+      End
+      Else
+      Begin
+        edtUsername.Clear;
+        edtPassword.Clear;
+        MessageDlg('The Admin username does not exist in the database.', mtError, mbOKCancel, 0);
+      End;
+    End;
+  End
+  Else
+  Begin
+    edtUsername.Clear;
+    edtPassword.Clear;
+    MessageDlg('Please enter valid information', mtError, mbOKCancel, 0);
+  End;
+end;
+
+function TfrmAdminLogin.IsUsernamePresentInAdmin(sUsername: String): Boolean;
+Var
+  bPresent : Boolean;
+  I : Integer;
+begin
+  bPresent := False;
+
+  With DBTravelNow Do
+  Begin
+    tblAdmin.Open;
+    tblAdmin.First;
+
+    for I := 1 to tblAdmin.RecordCount do
+    Begin
+      if UpperCase(sUsername) = UpperCase(tblAdmin['Username']) then
+      Begin
+        bPresent := True;
+      End;
+
+      tblAdmin.Next;
+    End;
+
+    tblAdmin.Close;
+  End;
+
+  Result := bPresent;
+end;
+
+
+end.

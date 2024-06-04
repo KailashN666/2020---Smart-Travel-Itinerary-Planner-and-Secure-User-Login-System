@@ -1,0 +1,112 @@
+unit ClientLogin_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, RegisterNewClient_u, IDClientLogin_u, TravelNowDB_u, Client_u, FunctionsAndProcedures_u, StdCtrls, ComCtrls, ExtCtrls;
+
+type
+  TfrmClientLogin = class(TForm)
+    pnlClientLogin: TPanel;
+    grpLogin: TGroupBox;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    lblUsername: TLabel;
+    lblPassword: TLabel;
+    edtUsername: TEdit;
+    edtPassword: TEdit;
+    btnLogin: TButton;
+    pnlForgotUsername: TPanel;
+    btnLoginWithID: TButton;
+    grpRegister: TGroupBox;
+    pnlRegister: TPanel;
+    lblRegisterIntro: TLabel;
+    btnRegister: TButton;
+    procedure btnLoginWithIDClick(Sender: TObject);
+    procedure btnRegisterClick(Sender: TObject);
+    procedure btnLoginClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmClientLogin: TfrmClientLogin;
+  sUsername : string; //sUsername Read into Functions and procedures in order to overcome Circular references
+implementation
+
+{$R *.dfm}
+
+procedure TfrmClientLogin.btnLoginClick(Sender: TObject);
+Var
+  sPassword : String;
+  I: Integer;
+begin
+  sUsername := edtUsername.Text;
+  sPassword := edtPassword.Text;
+
+  if (sUsername <> '') and (sPassword <> '')  then
+  Begin
+    if frmFunctionsAndProcedures.CheckUsernameInClientDB(sUsername) = True then
+    Begin
+      With DBTravelNow do
+      Begin
+        tblClient.Open;
+        tblClient.First;
+
+        for I := 1 to tblClient.RecordCount do
+        begin
+          if Uppercase(sUsername) = Uppercase(tblClient['Username']) then
+          Begin
+            if sPassword = tblClient['Password'] then
+            Begin
+              sName := tblClient['FirstName'];
+              MessageDlg('Welcome ' + sName, mtInformation, mbOKCancel, 0);
+              FunctionsAndProcedures_u.sClientUsername := sUsername;
+              frmClientLogin.Hide;
+              frmClient.Show;
+            End
+            Else
+            Begin
+              MessageDlg('The password that you have entered is incorrect.', mtError, mbOKCancel, 0);
+              edtPassword.Clear;
+            End;
+          End;
+
+          tblClient.Next;
+        end;
+
+        //tblClient.Close;
+      End;
+    End
+    Else
+    Begin
+      edtUsername.Clear;
+      edtPassword.Clear;
+      MessageDlg('The Client username does not exist in the database.', mtError, mbOKCancel, 0);
+    End;
+  End
+  Else
+  Begin
+    edtUsername.Clear;
+    edtPassword.Clear;
+    MessageDlg('Please enter valid information', mtError, mbOKCancel, 0);
+  End;
+end;
+
+procedure TfrmClientLogin.btnLoginWithIDClick(Sender: TObject);
+begin
+  frmClientIDLogin.Show;
+  frmClientLogin.Hide;
+end;
+
+procedure TfrmClientLogin.btnRegisterClick(Sender: TObject);
+begin
+  frmRegisterNewClient.Show;
+  frmClientLogin.Hide;
+end;
+
+end.

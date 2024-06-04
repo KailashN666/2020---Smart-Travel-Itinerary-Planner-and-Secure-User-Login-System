@@ -1,0 +1,314 @@
+object frmProcessingBooking: TfrmProcessingBooking
+  Left = 0
+  Top = 0
+  Caption = 'Processing Booking'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clGradientActiveCaption
+  Font.Charset = ANSI_CHARSET
+  Font.Color = clBlue
+  Font.Height = -13
+  Font.Name = 'MV Boli'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 17
+  object lblClientUsername: TLabel
+    Left = 173
+    Top = 47
+    Width = 6
+    Height = 17
+  end
+  object imgDestination: TImage
+    Left = 303
+    Top = 248
+    Width = 297
+    Height = 249
+    Stretch = True
+  end
+  object grpTickets: TGroupBox
+    Left = 0
+    Top = 70
+    Width = 297
+    Height = 129
+    Caption = 'Tickets'
+    TabOrder = 0
+    object lblTravellingTo: TLabel
+      Left = 15
+      Top = 32
+      Width = 131
+      Height = 17
+      Caption = 'You are travelling to:'
+    end
+    object lblCostOfTicket: TLabel
+      Left = 18
+      Top = 64
+      Width = 117
+      Height = 17
+      Caption = 'Cost of one ticket:'
+    end
+    object edtDestination: TEdit
+      Left = 168
+      Top = 24
+      Width = 121
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+    end
+  end
+  object pnlProcessingBooking: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'Processing Booking'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -19
+    Font.Name = 'MV Boli'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+  end
+  object grpAccommodation: TGroupBox
+    Left = 303
+    Top = 70
+    Width = 297
+    Height = 172
+    Caption = 'Accommodation'
+    TabOrder = 2
+    object lblHotel: TLabel
+      Left = 16
+      Top = 27
+      Width = 115
+      Height = 34
+      Caption = 'The place you '#13#10'will be staying at: '
+    end
+    object lblCostPerNight: TLabel
+      Left = 16
+      Top = 85
+      Width = 118
+      Height = 17
+      Caption = 'The cost per night:'
+    end
+    object lblAmtNights: TLabel
+      Left = 16
+      Top = 121
+      Width = 110
+      Height = 34
+      Caption = 'How many nights '#13#10'will you stay for?'
+    end
+    object edtHotel: TEdit
+      Left = 160
+      Top = 36
+      Width = 121
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object edtCostPerNight: TEdit
+      Left = 160
+      Top = 82
+      Width = 121
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object spnAmtNights: TSpinEdit
+      Left = 160
+      Top = 126
+      Width = 121
+      Height = 27
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      MaxValue = 100
+      MinValue = 1
+      ParentFont = False
+      TabOrder = 2
+      Value = 1
+    end
+  end
+  object edtTicketCost: TEdit
+    Left = 168
+    Top = 132
+    Width = 121
+    Height = 25
+    Enabled = False
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'MV Boli'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 3
+  end
+  object grpPlaneDetails: TGroupBox
+    Left = 0
+    Top = 199
+    Width = 297
+    Height = 298
+    Caption = 'Plane Details'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    object lblAmtTickets: TLabel
+      Left = 16
+      Top = 230
+      Width = 115
+      Height = 34
+      Caption = 'How many tickets '#13#10'would you like?'
+    end
+    object lblAeroplaneID: TLabel
+      Left = 16
+      Top = 24
+      Width = 81
+      Height = 17
+      Caption = 'Aeroplane ID:'
+    end
+    object lblAirlineName: TLabel
+      Left = 16
+      Top = 55
+      Width = 81
+      Height = 17
+      Caption = 'Airline Name:'
+    end
+    object lblNumSeatsAvail: TLabel
+      Left = 15
+      Top = 88
+      Width = 104
+      Height = 17
+      Caption = 'Num Seats Avail:'
+    end
+    object lblDepartureLocation: TLabel
+      Left = 16
+      Top = 120
+      Width = 60
+      Height = 34
+      Caption = 'Departure'#13#10'Location:'
+    end
+    object lblDepartureDate: TLabel
+      Left = 15
+      Top = 176
+      Width = 60
+      Height = 34
+      Caption = 'Departure'#13#10'Date:'
+    end
+    object spnAmtTickets: TSpinEdit
+      Left = 152
+      Top = 237
+      Width = 142
+      Height = 27
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      MaxValue = 100
+      MinValue = 1
+      ParentFont = False
+      TabOrder = 0
+      Value = 1
+    end
+    object pnlAeroplaneID: TPanel
+      Left = 109
+      Top = 16
+      Width = 185
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+    end
+    object pnlDepartureDate: TPanel
+      Left = 109
+      Top = 184
+      Width = 185
+      Height = 26
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+    end
+    object pnlDepartureLocation: TPanel
+      Left = 109
+      Top = 127
+      Width = 185
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+    end
+    object pnlNumSeatsAvail: TPanel
+      Left = 152
+      Top = 78
+      Width = 142
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+    end
+    object pnlAirlineName: TPanel
+      Left = 109
+      Top = 47
+      Width = 185
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'MV Boli'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 5
+    end
+    object btnBookNow: TButton
+      Left = 101
+      Top = 270
+      Width = 92
+      Height = 25
+      Caption = 'Book Now'
+      TabOrder = 6
+      OnClick = btnBookNowClick
+    end
+  end
+end

@@ -1,0 +1,425 @@
+unit RegisterNewClient_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Math, TravelNowDB_u, FunctionsAndProcedures_u;
+
+type
+  TfrmRegisterNewClient = class(TForm)
+    pnlClientReg: TPanel;
+    grpCompulsoryInfo: TGroupBox;
+    grpExtraInfo: TGroupBox;
+    grpUsername: TGroupBox;
+    pnlCompulsoryInfo: TPanel;
+    lblSurname: TLabel;
+    lblName: TLabel;
+    lblContactNumber: TLabel;
+    lblIDNumber: TLabel;
+    lblDateOfBirth: TLabel;
+    dtpDOB: TDateTimePicker;
+    edtName: TEdit;
+    edtSurname: TEdit;
+    edtContactNo: TEdit;
+    edtIDNum: TEdit;
+    pnlExtraInfo: TPanel;
+    pnlEmailQuestion: TPanel;
+    pnlEnterEmail: TPanel;
+    lblEmailQuestion: TLabel;
+    rgpEmail: TRadioGroup;
+    lblEnterEmail: TLabel;
+    edtEmail: TEdit;
+    lblUsername: TLabel;
+    edtUsername: TEdit;
+    btnConfirmDetails: TButton;
+    btnConfirmUsername: TButton;
+    btnProceedToClientScreen: TButton;
+    cmbVerification: TComboBox;
+    lblQuestions: TLabel;
+    edtAnswer: TEdit;
+    btnSubmitAnswer: TButton;
+    procedure FormActivate(Sender: TObject);
+    procedure btnConfirmDetailsClick(Sender: TObject);
+    procedure rgpEmailClick(Sender: TObject);
+    procedure btnSubmitAnswerClick(Sender: TObject);
+    Procedure PopulateComboBox(ArrQues : Array of String);
+    Function CheckUsernameInClientDB (sUsername : String) : Boolean;
+    procedure btnConfirmUsernameClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmRegisterNewClient: TfrmRegisterNewClient;
+  iNumQuestionsRem : Integer = 3;
+  iQuestionNum : Integer = 1;
+  sName, sSurname, sContactNo, sDOB, sIDNum, sUsername, sPassword, sEmail : String;
+  sArrQuestion : Array [1..3] of String;
+  sArrAnswer : Array [1..3] of String;
+  dDate : TDate;
+implementation
+
+{$R *.dfm}
+
+procedure TfrmRegisterNewClient.btnConfirmDetailsClick(Sender: TObject);
+var
+  I: Integer;
+  bInvalidContactNo, bInvalidIDNum, bInvalidDate, bInvalidEmail, bInvalidNameSurname : Boolean;
+  sDay, sMonth, sYear : String;
+  sFirst : String;
+begin
+  sName := edtName.Text;
+  sSurname := edtSurname.Text;
+
+  bInvalidNameSurname := False;
+  if (sName = '') or (sSurname = '') then
+  Begin
+    bInvalidNameSurname := True;
+  End;
+
+  sContactNo := edtContactNo.Text;
+  bInvalidContactNo := False;
+
+  sFirst := Copy(sContactNo, 1, 1);  //Used sContactNo[1]... didn't work
+
+  if ((sFirst = '+') AND (Length(sContactNo) = 12)) or ((sFirst = '0') AND (Length(sContactNo) = 10)) then
+  Begin
+    for I := 2 to Length(sContactNo) do
+    begin
+      if Not (sContactNo[I] IN ['0'..'9']) then
+      Begin
+        bInvalidContactNo := True;
+      End;
+    end;
+  End
+  Else
+  Begin
+    bInvalidContactNo := True;
+  End;
+
+  sIDNum := edtIDNum.Text;
+  bInvalidIDNum := False;
+
+  if Length(sIDNum) = 13 then
+  Begin
+    for I := 1 to Length(sIDNum) do
+    begin
+      if not(sIDNum[I] in ['0'..'9']) then
+      Begin
+        bInvalidIDNum := True;
+      End;
+    end;
+  End
+  Else
+  Begin
+    bInvalidIDNum := True;
+  End;
+
+  dDate := dtpDOB.Date;
+  sDOB := DateToStr(dDate);
+  bInvalidDate := False;
+
+  sYear := Copy(sDOB, 3,2);
+  sMonth := Copy(sDOB, 6, 2);
+  sDay := Copy(sDOB, 9, 2);
+
+  if (Copy(sIDNum, 1,2) <> sYear) or (Copy(sIDNum, 3, 2) <> sMonth) or (Copy(sIDNum, 5, 2) <> sDay) then
+  Begin
+    bInvalidDate := True;
+  End;
+
+  bInvalidEmail := False;
+  if ((rgpEmail.ItemIndex = 0) and (edtEmail.Text <> '')) or ((rgpEmail.ItemIndex = 1) and (edtEmail.Text = '')) or (rgpEmail.ItemIndex = -1) then
+  Begin
+    bInvalidEmail := True;
+  End;
+
+
+  if (bInvalidNameSurname = False) and (bInvalidContactNo = False) and (bInvalidIDNum = False) and (bInvalidDate = False) and (bInvalidEmail = False) and (iNumQuestionsRem = 0) Then
+  Begin
+    if MessageDlg('Would you like to submit these details? ', mtConfirmation, mbYesNo, 0) = mrYes then
+    Begin
+      grpCompulsoryInfo.Enabled := False;
+      grpExtraInfo.Enabled := False;
+      MessageDlg('Please proceed to the creation of your Username.', mtInformation, mbOKCancel, 0);
+      btnConfirmUsername.Enabled := True;
+      edtUsername.Enabled := True;
+    End
+    Else
+    Begin
+      MessageDlg('Please make sure you submit accurate information.', mtWarning, mbOKCancel, 0);
+    End;
+  End
+  Else
+  Begin
+    if bInvalidNameSurname = True then
+    Begin
+      edtName.Clear;
+      edtSurname.Clear;
+      edtName.SetFocus;
+      MessageDlg('The name or surname inputted was not entered correctly.',mtError, mbOKCancel, 0);
+    End;
+
+    if bInvalidContactNo = True then
+    Begin
+      edtContactNo.Clear;
+      edtContactNo.SetFocus;
+      MessageDlg('The contact number that you have provided is not of acceptable format.', mtError, mbOKCancel, 0);
+      //exit
+    End;
+
+    if bInvalidIDNum = True then
+    Begin
+      edtIDNum.Clear;
+      edtIDNum.SetFocus;
+      MessageDlg('The ID Number that you have provided is not of acceptable format.', mtError, mbOKCancel, 0);
+    End;
+
+    if bInvalidDate = True then
+    Begin
+      dtpDOB.Date := Date;
+      dtpDOB.SetFocus;
+      MessageDlg('Your Date of Birth does not correspond with your ID Number, Please ensure that both fields correspond', mtError, mbOKCancel, 0);
+    End;
+
+    if bInvalidEmail = True then
+    Begin
+      MessageDlg('Please ensure that the correct email details have been submitted.', mtError, mbOKCancel, 0);
+      rgpEmail.SetFocus;
+      rgpEmail.ItemIndex := -1;
+      edtEmail.Text := '';
+    End;
+
+    if iNumQuestionsRem <> 0 then
+    Begin
+      MessageDlg('You still have ' + IntToStr(iNumQuestionsRem) + ' verification question(s) left to answer', mtWarning, mbOKCancel, 0);
+    End;
+  End;
+end;
+
+procedure TfrmRegisterNewClient.btnConfirmUsernameClick(Sender: TObject);
+begin
+  if edtUsername.Text <> '' then
+  Begin
+    sUsername := edtUsername.Text;
+
+    if CheckUsernameInClientDB(sUsername) = True then
+    Begin
+      MessageDlg('This username already exists, please enter another', mtError, mbOKCancel, 0);
+      edtUsername.Clear;
+      edtUsername.SetFocus;
+    End
+    Else
+    Begin
+      if MessageDlg('You have chosen to enter ' + sUsername + ' as a username, can you confirm this?', mtConfirmation, mbYesNo, 0) = mrYes then
+      Begin
+        grpUsername.Enabled := False;
+
+        MessageDlg('The details to be entered into the database is as follows: ' +#13+
+        'Username: ' + sUsername +#13+ 'Name: ' + sName +#13+ 'Surname: ' + sSurname
+        +#13+ 'Contact Number: ' + sContactNo +#13+ 'Date of Birth: ' + sDOB +#13+
+        'ID Number: ' + sIDNum, mtInformation, mbOKCancel, 0);
+
+        sPassword := Copy(sName, 1, 3) + Copy(sSurname, 1, 1) + IntToStr(RandomRange(10, 100));
+
+        if rgpEmail.ItemIndex = 0 then
+        Begin
+          sEmail := 'No Email Address';
+        End
+        Else
+        Begin
+          sEmail := edtEmail.Text;
+        End;
+
+        With DBTravelNow Do
+        Begin
+          tblClient.Open;
+          tblClient.Last;
+
+          tblClient.Insert;
+
+          tblClient['Username'] := sUsername;
+          tblClient['Password'] := sPassword;
+          tblClient['FirstName'] := sName;
+          tblClient['Surname'] := sSurname;
+          tblClient['ContactNumber'] := sContactNo;
+          tblClient['IDNumber'] := sIDNum;
+          tblClient['DateOfBirth'] := dDate;
+          tblClient['EmailAddress'] := sEmail;
+          tblClient['Question1'] := sArrQuestion[1];
+          tblClient['Answer1'] := sArrAnswer[1];
+          tblClient['Question2'] := sArrQuestion[2];
+          tblClient['Answer2'] := sArrAnswer[2];
+          tblClient['Question3'] := sArrQuestion[3];
+          tblClient['Answer3'] := sArrAnswer[3];
+
+          tblClient.Post;
+          tblClient.Refresh;
+          tblClient.Close;
+        End;
+
+        MessageDlg('Your details have been added to the Client Database'
+                    +#13+ 'Username: ' + sUsername +#13+ 'Password: ' + sPassword, mtInformation, mbOKCancel, 0);
+
+        if rgpEmail.ItemIndex = 1 then
+        Begin
+          frmFunctionsAndProcedures.EmailUsernamePassword(sName, sEmail, sUsername, sPassword);
+          MessageDlg('Your login details have also been emailed to the email address provided.', mtInformation, mbOKCancel, 0);
+        End;
+      End
+      Else
+      Begin
+        edtUsername.Clear;
+        edtUsername.SetFocus;
+        MessageDlg('Please enter a username you would be happy with.',mtWarning, mbOKCancel, 0);
+      End;
+    End;
+  End
+  Else
+  Begin
+    MessageDlg('Please enter a valid username.', mtError, mbOKCancel, 0);
+  End;
+end;
+
+procedure TfrmRegisterNewClient.btnSubmitAnswerClick(Sender: TObject);
+begin
+  if (edtAnswer.Text <> '') and (cmbVerification.Text = cmbVerification.Items[cmbVerification.ItemIndex]) then
+  Begin
+    if MessageDlg('You are willing to submit the following for Question ' + IntToStr(iQuestionNum) +#13+ 'Question: ' + cmbVerification.Items[cmbVerification.ItemIndex] +#13+ 'Answer: ' + edtAnswer.Text, mtConfirmation , mbYesNo, 0) = mrYes then
+    Begin
+      sArrQuestion[iQuestionNum] := cmbVerification.Items[cmbVerification.ItemIndex];
+      sArrAnswer[iQuestionNum] := edtAnswer.Text;
+
+      {ShowMessage(sArrQuestion[iQuestionNum]);
+      ShowMessage(sArrAnswer[iQuestionNum]);}
+
+      edtAnswer.Clear;
+      PopulateComboBox(sArrQuestion);
+      cmbVerification.SetFocus;
+
+      iNumQuestionsRem := iNumQuestionsRem - 1;
+      Inc(iQuestionNum);
+      lblQuestions.Caption := 'You still have ' + IntToStr(iNumQuestionsRem) + ' to submit';
+      btnSubmitAnswer.Caption := 'Submit Answer ' + IntToStr(iQuestionNum);
+
+      if iNumQuestionsRem = 0 then
+      Begin
+        btnSubmitAnswer.Enabled := False;
+        cmbVerification.ItemIndex := 0;
+
+        //Do not reduce cells of arrays here to null, do it after record is entered.
+      End;
+
+    End
+    Else
+    Begin
+      cmbVerification.ItemIndex := 0;
+      edtAnswer.Clear;
+      MessageDlg('Please ensure that you are submitting the correct information.', mtWarning, mbOKCancel, 0);
+    End;
+  End
+  Else
+  Begin
+    edtAnswer.SetFocus;
+    edtAnswer.Clear;
+    cmbVerification.ItemIndex := 0;
+    MessageDlg('Please enter a valid answer or make sure that you have selected a question', mtError, mbOKCancel, 0);
+  End;
+end;
+
+function TfrmRegisterNewClient.CheckUsernameInClientDB(
+  sUsername: String): Boolean;
+var
+  I: Integer;
+  bFound : Boolean;
+begin
+  bFound := False;
+
+  with DBTravelNow do
+  Begin
+    tblClient.Open;
+    tblClient.First;
+
+    for I := 1 to tblClient.RecordCount do
+    begin
+      if tblClient['Username'] = sUsername then
+      Begin
+        bFound := True;
+        Break
+      End;
+
+      tblClient.Next;
+    end;
+
+    tblClient.Close;
+
+    Result := bFound;
+  End;
+end;
+
+procedure TfrmRegisterNewClient.FormActivate(Sender: TObject);
+begin
+  MessageDlg('Please Note' +#13+ 'You are required to pick 3 questions and submit 3 answers' +#13+ 'which will help to verify your profile later should you forget your logins.', mtInformation, mbOKCancel, 0);
+  lblQuestions.Caption := 'You still have ' + IntToStr(iNumQuestionsRem) + ' to submit';
+  btnSubmitAnswer.Caption := 'Submit Answer ' + IntToStr(iQuestionNum);
+
+  PopulateComboBox(sArrQuestion);
+end;
+
+procedure TfrmRegisterNewClient.PopulateComboBox(ArrQues: array of String);
+Var
+  DataFile : Textfile;
+  sQuestion : String;
+begin
+  cmbVerification.Items.Clear;
+
+  if FileExists('Verification Questions.txt') then
+  Begin
+    AssignFile(DataFile, 'Verification Questions.txt');
+    Reset(DataFile);
+
+    while not Eof(DataFile) do
+    Begin
+      Readln(DataFile, sQuestion);
+
+      if (arrQues[0] <> sQuestion) and (arrQues[1] <> sQuestion) and (arrQues[2] <> sQuestion) then
+      Begin
+        frmRegisterNewClient.cmbVerification.Items.Add(sQuestion);
+      End;
+
+    End;
+
+    CloseFile(DataFile);
+
+    frmRegisterNewClient.cmbVerification.ItemIndex := 0;
+  End
+  Else
+  Begin
+    MessageDlg('The Data file containing security questions has been tampered with.', mtError, mbOKCancel, 0);
+  End;
+
+end;
+
+
+procedure TfrmRegisterNewClient.rgpEmailClick(Sender: TObject);
+Var
+  iIndex : Integer;
+begin
+  iIndex := rgpEmail.ItemIndex;
+
+  if iIndex = 1 then
+  Begin
+    pnlEnterEmail.Visible := True;
+    pnlEnterEmail.Enabled := True;
+  End
+  Else
+  Begin
+    pnlEnterEmail.Enabled := False;
+    edtEmail.Color := clBtnShadow;
+  End;
+end;
+
+end.

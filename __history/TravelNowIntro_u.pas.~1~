@@ -1,0 +1,24 @@
+unit TravelNowIntro_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs;
+
+type
+  TfrmIntroductoryScreen = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmIntroductoryScreen: TfrmIntroductoryScreen;
+
+implementation
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,32 @@
+unit TravelNowDB_u;
+
+interface
+
+uses
+  SysUtils, Classes, ADODB, DB;
+
+type
+  TDBTravelNow = class(TDataModule)
+    conTravelNow: TADOConnection;
+    tblClient: TADOTable;
+    tblEmployee: TADOTable;
+    tblAdmin: TADOTable;
+    dsEmployee: TDataSource;
+    dsAdmin: TDataSource;
+    dsClient: TDataSource;
+    qryTravelNow: TADOQuery;
+    dsTravelNow: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DBTravelNow: TDBTravelNow;
+
+implementation
+
+{$R *.dfm}
+
+end.

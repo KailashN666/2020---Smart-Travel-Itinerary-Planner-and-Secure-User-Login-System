@@ -1,0 +1,130 @@
+object frmBookDestination: TfrmBookDestination
+  Left = 0
+  Top = 0
+  Caption = 'Book Destination'
+  ClientHeight = 500
+  ClientWidth = 600
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object img1: TImage
+    Left = 265
+    Top = 47
+    Width = 327
+    Height = 209
+    Stretch = True
+  end
+  object img2: TImage
+    Left = 265
+    Top = 262
+    Width = 105
+    Height = 74
+    Stretch = True
+    OnClick = img2Click
+  end
+  object img3: TImage
+    Left = 376
+    Top = 262
+    Width = 105
+    Height = 74
+    Stretch = True
+    OnClick = img3Click
+  end
+  object img4: TImage
+    Left = 487
+    Top = 262
+    Width = 105
+    Height = 74
+    Stretch = True
+    OnClick = img4Click
+  end
+  object imgTemp: TImage
+    Left = 0
+    Top = 472
+    Width = 41
+    Height = 33
+    Visible = False
+  end
+  object pnlBookDestination: TPanel
+    Left = 0
+    Top = 0
+    Width = 601
+    Height = 41
+    Caption = 'pnlBookDestination'
+    TabOrder = 0
+  end
+  object cmbSelectDestination: TComboBox
+    Left = 8
+    Top = 47
+    Width = 251
+    Height = 22
+    Style = csOwnerDrawFixed
+    TabOrder = 1
+    OnClick = cmbSelectDestinationClick
+    Items.Strings = (
+      'Barcelona'
+      'Amsterdam'
+      'Osaka'
+      'Vienna'
+      'Monte Carlo'
+      'Florence'
+      'Bergen'
+      'London'
+      'New York City'
+      'Paris')
+  end
+  object btnProceed: TButton
+    Left = 40
+    Top = 336
+    Width = 209
+    Height = 25
+    Caption = 'btnProceedToBookWith/Without Accommm'
+    TabOrder = 2
+    OnClick = btnProceedClick
+  end
+  object redInfo: TRichEdit
+    Left = 265
+    Top = 361
+    Width = 327
+    Height = 131
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    Visible = False
+  end
+  object grpDetails: TGroupBox
+    Left = 8
+    Top = 104
+    Width = 251
+    Height = 209
+    TabOrder = 4
+    object lblCountry: TLabel
+      Left = 32
+      Top = 48
+      Width = 49
+      Height = 13
+      Caption = 'lblCountry'
+      Visible = False
+    end
+    object lblCost: TLabel
+      Left = 32
+      Top = 152
+      Width = 32
+      Height = 13
+      Caption = 'lblCost'
+      Visible = False
+    end
+  end
+end
